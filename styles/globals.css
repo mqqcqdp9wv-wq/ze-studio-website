@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navigation-height: 4.8rem;
+  }
+
+  html {
+    @apply bg-background font-sans text-off-white;
+    font-size: 62.5%;
+  }
+
+  .highlighted-keys .active rect:first-child {
+    fill-opacity: 0.4;
+  }
+
+  .highlighted-keys .active rect:not(:first-child) {
+    stroke-opacity: 1;
+  }
+
+  .highlighted-keys .active path {
+    fill-opacity: 1;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right bottom, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0.38));
+    background-clip: text;
+    color: transparent;
+  }
+
+  .mask-radial-faded {
+    mask-image: radial-gradient(circle at center center, black, transparent 80%)
+  }
+
+  .mask-linear-faded {
+    mask-image: linear-gradient(black, transparent 70%)
+  }
+
+  .mask-keyboard {
+    mask-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.57) 33.98%, black 100%);
+  }
+
+  .mask-shortcutkeys {
+    mask-image: linear-gradient(to right, transparent, black 40%, black calc(60%), transparent 100%);
+  }
+
+  /* Modern Linear Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Hover effect for glass cards */
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Animated gradient logo */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .logo-gradient {
+    background: linear-gradient(90deg, #fff, #888, #fff, #888);
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  /* Menu hover glow */
+  .menu-glow:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+    transition: text-shadow 0.3s ease;
+  }
+
+  /* Letter animation on load */
+  @keyframes letter-appear {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-letter {
+    display: inline-block;
+    animation: letter-appear 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  /* Active menu item */
+  .menu-active {
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    position: relative;
+  }
+
+  .menu-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+  }
+
+  /* Button pulse animation */
+  @keyframes pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    50% {
+      box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .btn-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Button ripple effect */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+
+  .btn-ripple:active::after {
+    width: 200px;
+    height: 200px;
+  }
+}
