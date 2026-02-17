@@ -1,13 +1,14 @@
 import { AnalyticsWrapper } from "../components/analytics";
 import { Container } from "../components/container";
-import { CopyrightLinearBanner } from "../components/copyright-linear-banner";
+
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
+import { ThemeProvider } from "../components/theme-provider";
 import "../styles/globals.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
@@ -15,15 +16,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        <div>
-          <Header />
-          <main className="bg-page-gradient pt-navigation-height">
-            {children}
-          </main>
-          <Footer />
-          <CopyrightLinearBanner />
-        </div>
-        <AnalyticsWrapper />
+        <ThemeProvider>
+          <div>
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
+
+          </div>
+          <AnalyticsWrapper />
+        </ThemeProvider>
       </body>
     </html>
   );

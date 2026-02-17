@@ -24,7 +24,7 @@ module.exports = {
       white: "#fff",
       "off-white": "#f7f8f8",
       "transparent-white": "rgba(255, 255, 255, 0.08)",
-      background: "#08090A", /* Modern Obsidian */
+      background: "#000000", /* Pure Black */
       grey: "#858699",
       "grey-dark": "#222326",
       "primary-text": "#b4bcd0",
@@ -126,6 +126,10 @@ module.exports = {
           transform: "scale(0.98)",
         },
       },
+      marquee: {
+        "0%": { transform: "translateX(0)" },
+        "100%": { transform: "translateX(-50%)" },
+      },
     },
     animation: {
       "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
@@ -138,6 +142,7 @@ module.exports = {
         "glow-line-vertical var(--animation-duration) ease-in forwards",
       zap: "zap 2250ms calc(var(--index) * 20ms) linear infinite",
       bounce: "240ms ease 0s 1 running bounce",
+      marquee: "marquee 25s linear infinite",
     },
   },
   plugins: [],

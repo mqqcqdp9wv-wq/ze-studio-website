@@ -1,39 +1,54 @@
-import { AlanLogo } from "../logos/alan";
-import { ArcLogo } from "../logos/arc";
-import { CashAppLogo } from "../logos/cashapp";
-import { DescriptLogo } from "../logos/descript";
-import { LoomLogo } from "../logos/loom";
-import { MercuryLogo } from "../logos/mercury";
-import { OpenSeaLogo } from "../logos/opensea";
-import { PitchLogo } from "../logos/pitch";
-import { RampLogo } from "../logos/ramp";
-import { RaycastLogo } from "../logos/raycast";
-import { RetoolLogo } from "../logos/retool";
-import { VercelLogo } from "../logos/vercel";
+"use client";
 
-export const Clients = () => (
-  <>
-    <p className="mb-12 text-center text-lg text-white md:text-xl">
-      <span className="text-primary-text">
-        Powering the world’s best product teams.
-      </span>
-      <br className="hidden md:block" /> From next-gen startups to established
-      enterprises.
-    </p>
+import { useState } from "react";
+import classNames from "classnames";
 
-    <div className="flex flex-wrap justify-around gap-x-6 gap-y-8 [&_svg]:max-w-[16rem] [&_svg]:basis-[calc(50%-12px)] md:[&_svg]:basis-[calc(16.66%-20px)]">
-      <RampLogo />
-      <LoomLogo className="hidden md:block" />
-      <VercelLogo />
-      <DescriptLogo className="hidden md:block" />
-      <CashAppLogo />
-      <RaycastLogo />
-      <MercuryLogo />
-      <RetoolLogo />
-      <AlanLogo className="hidden md:block" />
-      <ArcLogo className="hidden md:block" />
-      <OpenSeaLogo className="hidden md:block" />
-      <PitchLogo className="hidden md:block" />
-    </div>
-  </>
-);
+const carBrands = [
+  "Toyota", "Kia", "Hyundai", "Haval", "Geely",
+  "BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Mazda",
+  "Nissan", "Honda", "Lexus", "Porsche", "Chery", "Škoda",
+  "Mitsubishi", "Subaru", "Infiniti", "Land Rover",
+  "Changan", "Omoda", "Exeed", "Lada",
+];
+
+export const Clients = () => {
+  // Duplicate for seamless loop
+  const allBrands = [...carBrands, ...carBrands];
+
+  return (
+    <>
+      <p className="mb-12 text-center text-2xl md:text-4xl font-medium tracking-tight text-white">
+        <span className="text-white">
+          Работаем с любыми марками автомобилей.
+        </span>
+        <br className="hidden md:block" />
+        <span className="text-white/50 text-lg md:text-xl font-normal">
+          Более 20 000 авто затонировано за 18 лет.
+        </span>
+      </p>
+
+      {/* Marquee Container with mask */}
+      <div
+        className="relative overflow-hidden"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)',
+        }}
+      >
+        {/* Scrolling track */}
+        <div className="flex items-center gap-4 py-6 animate-marquee">
+          {allBrands.map((brand, i) => (
+            <div
+              key={`${brand}-${i}`}
+              className="flex-shrink-0"
+            >
+              <span className="text-sm md:text-lg font-normal tracking-wide uppercase cursor-default select-none px-6 py-3 whitespace-nowrap text-white/30">
+                {brand}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};

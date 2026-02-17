@@ -10,12 +10,11 @@ export const UnlikeAnyTool = () => (
     <Container>
       <div className="text-center">
         <h2 className="mb-4 text-4xl md:mb-7 md:text-7xl">
-          Unlike any tool
-          <br className="hidden md:inline-block" /> you've used before
+          Почему «просто тонировка»
+          <br className="hidden md:inline-block" /> стоит дороже, чем кажется
         </h2>
         <p className="mx-auto mb-12 max-w-[68rem] text-lg text-primary-text md:mb-7 md:text-xl">
-          Designed to the last pixel and engineered with unforgiving precision,
-          Linear combines UI elegance with world-class performance.
+          Инженерные риски тонирования автомобилей с современной электроникой.
         </p>
       </div>
     </Container>

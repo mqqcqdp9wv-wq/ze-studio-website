@@ -10,6 +10,11 @@
   html {
     @apply bg-background font-sans text-off-white;
     font-size: 62.5%;
+    background-color: #000;
+  }
+
+  body {
+    background-color: #000;
   }
 
   .highlighted-keys .active rect:first-child {
@@ -82,18 +87,85 @@
   }
 
   .logo-gradient {
-    background: linear-gradient(90deg, #fff, #888, #fff, #888);
-    background-size: 300% 100%;
+    background: linear-gradient(to right,
+        #fff 0%,
+        #fff 40%,
+        #858699 50%,
+        #fff 60%,
+        #fff 100%);
+    background-size: 200% auto;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: gradient-shift 4s ease infinite;
+    animation: shine 6s linear infinite;
   }
 
-  /* Menu hover glow */
-  .menu-glow:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
-    transition: text-shadow 0.3s ease;
+  @keyframes shine {
+    0% {
+      background-position: -100% center;
+    }
+
+    100% {
+      background-position: 100% center;
+    }
+  }
+
+  /* Icon Menu — Expanding Pill */
+  .nav-icon-link {
+    @apply relative flex items-center h-10 rounded-full transition-all duration-500;
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    width: auto;
+    background: transparent;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Center icon initially using padding */
+  .nav-icon-wrapper {
+    @apply flex items-center justify-center w-4 h-4 flex-shrink-0;
+  }
+
+  .nav-icon-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    padding-right: 16px;
+  }
+
+  .nav-icon-link:hover .nav-icon {
+    @apply opacity-100 scale-100;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  }
+
+  .nav-icon {
+    @apply opacity-60 transition-all duration-300;
+  }
+
+  .nav-label {
+    @apply opacity-0 max-w-0 transition-all duration-500 whitespace-nowrap overflow-hidden;
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    margin-left: 0;
+  }
+
+  .nav-icon-link:hover .nav-label {
+    @apply opacity-100 max-w-[200px];
+    margin-left: 8px;
+  }
+
+  /* Text Action Button (Glass Style) */
+  .nav-action-btn {
+    @apply relative flex items-center justify-center px-5 h-10 rounded-full text-sm font-medium text-white/70 transition-all duration-300;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-action-btn:hover {
+    @apply text-white;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
   }
 
   /* Letter animation on load */
@@ -117,18 +189,17 @@
 
   /* Active menu item */
   .menu-active {
-    color: #fff !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    @apply text-white !important;
     position: relative;
   }
 
   .menu-active::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -4px;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 1px;
     background: linear-gradient(90deg, transparent, #fff, transparent);
   }
 
@@ -172,4 +243,10 @@
     width: 200px;
     height: 200px;
   }
+}
+
+/* Video Mask Fade */
+.mask-linear-fade {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }

@@ -5,16 +5,41 @@ import { useEffect, useState } from "react";
 import { Button } from "./button";
 import { Container } from "./container";
 import { HamburgerIcon } from "./icons/hamburger";
-import { Logo } from "./icons/logo";
 import classNames from "classnames";
+import {
+  Home,
+  Droplets,
+  Thermometer,
+  Sliders,
+  User,
+  Newspaper,
+  Phone,
+} from "lucide-react";
+
+const navItems = [
+  { label: "Главная", href: "/", icon: Home },
+  { label: "Углерод", href: "/monocarbon", icon: Droplets },
+  { label: "Керамика", href: "/ceramic", icon: Thermometer },
+  { label: "Подбор", href: "/tinting-model", icon: Sliders },
+  { label: "О мастере", href: "#about", icon: User },
+  { label: "Новости", href: "/blog", icon: Newspaper },
+  { label: "Контакты", href: "#contacts", icon: Phone },
+];
 
 export const Header = () => {
   const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const html = document.querySelector("html");
     if (html) html.classList.toggle("overflow-hidden", hamburgerMenuIsOpen);
   }, [hamburgerMenuIsOpen]);
+
+  useEffect(() => {
+    const onScroll = () => setHasScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const closeHamburgerNavigation = () => setHamburgerMenuIsOpen(false);
@@ -29,15 +54,20 @@ export const Header = () => {
   }, [setHamburgerMenuIsOpen]);
 
   return (
-    <header className="fixed top-0 left-0 z-10 w-full border-b border-white/[0.08] backdrop-blur-[12px] bg-background/60 supports-[backdrop-filter]:bg-background/20">
-      <Container className="flex h-navigation-height">
-        <Link className="flex items-center text-lg font-bold logo-gradient" href="/">
-          ze.studio
+    <header className={classNames(
+      "fixed top-0 left-0 z-10 w-full transition-all duration-500",
+      hasScrolled
+        ? "border-b border-white/[0.08] backdrop-blur-[12px] bg-black/80"
+        : "border-b border-transparent bg-transparent"
+    )}>
+      <Container className="flex h-navigation-height items-center">
+        <Link className="flex items-center gap-2" href="/">
+          <span className="logo-gradient text-xl font-black tracking-tighter">ze.studio</span>
         </Link>
 
         <div
           className={classNames(
-            "transition-[visibility] md:visible",
+            "flex-1 flex justify-center transition-[visibility] md:visible",
             hamburgerMenuIsOpen ? "visible" : "delay-500 invisible"
           )}
         >
@@ -51,32 +81,32 @@ export const Header = () => {
           >
             <ul
               className={classNames(
-                "flex h-full flex-col md:flex-row md:items-center [&_li]:ml-6 [&_li]:border-b [&_li]:border-grey-dark md:[&_li]:border-none",
-                "ease-in [&_a:hover]:text-grey [&_a]:flex [&_a]:h-navigation-height [&_a]:w-full [&_a]:translate-y-8 [&_a]:items-center [&_a]:text-lg [&_a]:transition-[color,transform] [&_a]:duration-300 md:[&_a]:translate-y-0 md:[&_a]:text-sm [&_a]:md:transition-colors",
+                "flex h-full flex-col md:flex-row md:items-center md:gap-x-8 [&_li]:border-b [&_li]:border-grey-dark md:[&_li]:border-none",
+                "ease-in [&_a:hover]:text-grey [&_a]:flex [&_a]:h-navigation-height [&_a]:w-full [&_a]:translate-y-8 [&_a]:items-center [&_a]:gap-2 [&_a]:text-lg [&_a]:transition-[color,transform] [&_a]:duration-300 md:[&_a]:translate-y-0 md:[&_a]:text-sm [&_a]:md:transition-colors",
                 hamburgerMenuIsOpen && "[&_a]:translate-y-0"
               )}
             >
-              <li>
-                <Link href="#about" className="menu-glow menu-active">О себе</Link>
-              </li>
-              <li>
-                <Link href="#films" className="menu-glow">Плёнки</Link>
-              </li>
-              <li>
-                <Link href="#news" className="menu-glow">Новости</Link>
-              </li>
-              <li>
-                <Link href="#contact" className="menu-glow">Контакты</Link>
-              </li>
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.href}>
+                    <Link className="nav-icon-link" href={item.href} title={item.label}>
+                      <div className="nav-icon-wrapper">
+                        <Icon className="nav-icon w-5 h-5 opacity-80" />
+                      </div>
+                      <span className="md:hidden ml-2">{item.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
 
         <div className="ml-auto flex h-full items-center">
-          <Link className="mr-6 text-sm hidden md:block" href="tel:+79158582115">
-            +7 (915) 858-21-15
+          <Link href="#" className="nav-action-btn">
+            Записаться
           </Link>
-          <Button href="https://wa.me/79158582115" className="btn-pulse btn-ripple">Записаться</Button>
         </div>
 
         <button

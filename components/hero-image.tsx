@@ -75,9 +75,9 @@ export const HeroImage = () => {
               className={classNames(
                 "absolute top-0 block h-[1px] w-[10rem] bg-glow-lines",
                 line.direction === "to left" &&
-                  `left-0 h-[1px] w-[calc(var(--size)*0.5rem)] animate-glow-line-horizontal md:w-[calc(var(--size)*1rem)]`,
+                `left-0 h-[1px] w-[calc(var(--size)*0.5rem)] animate-glow-line-horizontal md:w-[calc(var(--size)*1rem)]`,
                 line.direction === "to top" &&
-                  `right-0 h-[calc(var(--size)*0.5rem)] w-[1px] animate-glow-line-vertical md:h-[calc(var(--size)*1rem)]`
+                `right-0 h-[calc(var(--size)*0.5rem)] w-[1px] animate-glow-line-vertical md:h-[calc(var(--size)*1rem)]`
               )}
             />
           ))}
@@ -99,13 +99,16 @@ export const HeroImage = () => {
           <path pathLength="1" d="M538 777L538 128"></path>
         </svg>
 
-        <img
+        <video
           className={classNames(
-            "relative z-10 transition-opacity delay-[680ms]",
+            "relative z-10 transition-opacity delay-[680ms] rounded-lg",
             inView ? "opacity-100" : "opacity-0"
           )}
-          src="/img/hero.webp"
-          alt="Hero image"
+          src="/img/hero-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
         />
       </div>
     </div>

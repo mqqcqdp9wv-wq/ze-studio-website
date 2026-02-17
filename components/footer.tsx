@@ -53,7 +53,8 @@ export const Footer = () => (
       <div>
         <div className="flex h-full flex-row justify-between lg:flex-col">
           <div className="flex items-center text-grey">
-            <Logo className="mr-4 h-4 w-4" /> Linear - Designed worldwide
+            <span className="logo-gradient text-md font-bold mr-2">ze.studio</span>
+            <span className="text-xs opacity-50">Студия детейлинга</span>
           </div>
           <div className="mt-auto flex space-x-4 text-grey">
             <TwitterIcon />
