@@ -104,7 +104,7 @@ export const HeroImage = () => {
             "relative z-10 transition-opacity delay-[680ms] rounded-lg",
             inView ? "opacity-100" : "opacity-0"
           )}
-          src="/img/hero-video.mp4"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/img/hero-video.mp4`}
           autoPlay
           muted
           loop

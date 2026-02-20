@@ -8,7 +8,7 @@ export const HomepageHero = () => (
     {/* Video */}
     <video
       className="absolute inset-0 w-full h-full object-cover"
-      src="/img/hero-video.mp4"
+      src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/img/hero-video.mp4`}
       autoPlay
       muted
       loop
