@@ -1,0 +1,136 @@
+./app/layout.tsx:import { AnalyticsWrapper } from "../components/analytics";
+./app/layout.tsx:import { Container } from "../components/container";
+./app/layout.tsx:import { Footer } from "../components/footer";
+./app/layout.tsx:import { Header } from "../components/header";
+./app/layout.tsx:import { ThemeProvider } from "../components/theme-provider";
+./app/layout.tsx:import "../styles/globals.css";
+./app/page.tsx:import classNames from "classnames";
+./app/page.tsx:import { Container } from "../components/container";
+./app/page.tsx:import { StarsIllustration } from "../components/icons/stars";
+./app/page.tsx:import { BuildMomentum } from "../components/sections/build-momentum";
+./app/page.tsx:import { Clients } from "../components/sections/clients";
+./app/page.tsx:import { EnjoyIssueTracking } from "../components/sections/enjoy-issue-tracking";
+./app/page.tsx:import { HomepageHero } from "../components/sections/homepage-hero";
+./app/page.tsx:import { SetDirection } from "../components/sections/set-direction";
+./app/page.tsx:import { UnlikeAnyTool } from "../components/sections/unlike-any-tool";
+./app/page.tsx:import { EngineeringCulture } from "../components/sections/engineering-culture";
+./app/page.tsx:import { EngineeringApproach } from "../components/sections/engineering-approach";
+./.next/types/app/page.ts:import * as entry from '../../../app/page.js'
+./.next/types/app/page.ts:import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
+./components/theme-provider.tsx:import { ThemeProvider as NextThemesProvider } from "next-themes";
+./components/theme-provider.tsx:import { ReactNode } from "react";
+./components/hero.tsx:import classNames from "classnames";
+./components/ui/container.tsx:import classNames from "classnames";
+./components/ui/magnetic-button.tsx:import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+./components/ui/magnetic-button.tsx:import { MouseEvent, ReactNode, useRef } from "react";
+./components/ui/magnetic-button.tsx:import classNames from "classnames";
+./components/ui/button.tsx:import Link from "next/link";
+./components/ui/button.tsx:import { cva, VariantProps } from "class-variance-authority";
+./components/ui/button.tsx:import classNames from "classnames";
+./components/sections/build-momentum.tsx:import { Features } from "../features";
+./components/sections/build-momentum.tsx:import {
+./components/sections/set-direction.tsx:import { Features } from "../features";
+./components/sections/set-direction.tsx:import {
+./components/sections/engineering-culture.tsx:import { useState } from "react";
+./components/sections/engineering-culture.tsx:import { motion, AnimatePresence } from "framer-motion";
+./components/sections/engineering-culture.tsx:import { Container } from "../container";
+./components/sections/engineering-culture.tsx:import { Shield, Radio, Sun, X } from "lucide-react";
+./components/sections/homepage-hero.tsx:import { Button, Highlight } from "../button";
+./components/sections/homepage-hero.tsx:import { Hero, HeroTitle, HeroSubtitle } from "../hero";
+./components/sections/homepage-hero.tsx:import { ChevronIcon } from "../icons/chevron";
+./components/sections/homepage-hero.tsx:import { Container } from "../container";
+./components/sections/enjoy-issue-tracking.tsx:import { Features } from "../features";
+./components/sections/enjoy-issue-tracking.tsx:import {
+./components/sections/engineering-approach.tsx:import { useRef } from "react";
+./components/sections/engineering-approach.tsx:import { motion, useInView } from "framer-motion";
+./components/sections/engineering-approach.tsx:import { Container } from "../container";
+./components/sections/engineering-approach.tsx:import { AssemblyVisual } from "../visuals/assembly-visual";
+./components/sections/engineering-approach.tsx:import { SignalVisual } from "../visuals/signal-visual";
+./components/sections/engineering-approach.tsx:import { ProtectionVisual } from "../visuals/protection-visual";
+./components/sections/engineering-approach.tsx:import { FocusVisual } from "../visuals/focus-visual";
+./components/sections/clients.tsx:import { useState } from "react";
+./components/sections/clients.tsx:import classNames from "classnames";
+./components/sections/problems.tsx:import { useRef } from "react";
+./components/sections/problems.tsx:import { motion, useScroll, useTransform, useInView } from "framer-motion";
+./components/sections/problems.tsx:import { Container } from "../container";
+./components/sections/problems.tsx:import {
+./components/sections/unlike-any-tool.tsx:import { Button, Highlight } from "../button";
+./components/sections/unlike-any-tool.tsx:import { CommandMenu } from "../command-menu";
+./components/sections/unlike-any-tool.tsx:import { Container } from "../container";
+./components/sections/unlike-any-tool.tsx:import { LogoLightIllustration } from "../illustrations/logo-light";
+./components/sections/unlike-any-tool.tsx:import { ZapIllustration } from "../illustrations/zap";
+./components/sections/unlike-any-tool.tsx:import { KeyboardShortcuts } from "../keyboard-shortcuts";
+./components/features.tsx:import classNames from "classnames";
+./components/features.tsx:import { Container } from "./container";
+./components/features.tsx:import { useInView } from "react-intersection-observer";
+./components/container.tsx:import classNames from "classnames";
+./components/logos/car-brands.tsx:import React from "react";
+./components/footer.tsx:import Link from "next/link";
+./components/footer.tsx:import { Container } from "./container";
+./components/footer.tsx:import { GithubIcon } from "./icons/github";
+./components/footer.tsx:import { Logo } from "./icons/logo";
+./components/footer.tsx:import { SlackIcon } from "./icons/slack";
+./components/footer.tsx:import { TwitterIcon } from "./icons/twitter";
+./components/analytics.tsx:import { Analytics } from "@vercel/analytics/react";
+./components/keyboard-shortcuts.tsx:import { useCallback, useEffect, useRef, useState } from "react";
+./components/keyboard-shortcuts.tsx:import { Button, Highlight } from "./button";
+./components/keyboard-shortcuts.tsx:import { KeyboardIllustration } from "./illustrations/keyboard";
+./components/icons/feature-icon.tsx:import classNames from "classnames";
+./components/icons/feature-icon.tsx:import { LucideIcon } from "lucide-react";
+./components/icons/command-bar/label.tsx:import classNames from "classnames";
+./components/header.tsx:import Link from "next/link";
+./components/header.tsx:import { useEffect, useState } from "react";
+./components/header.tsx:import { Button } from "./button";
+./components/header.tsx:import { Container } from "./container";
+./components/header.tsx:import { HamburgerIcon } from "./icons/hamburger";
+./components/header.tsx:import classNames from "classnames";
+./components/header.tsx:import {
+./components/visuals/signal-visual.tsx:import { useEffect, useRef } from "react";
+./components/visuals/flowchart-visual.tsx:import { useEffect, useRef } from "react";
+./components/visuals/protection-visual.tsx:import { useEffect, useRef } from "react";
+./components/visuals/focus-visual.tsx:import { useEffect, useRef } from "react";
+./components/visuals/assembly-visual.tsx:import { useEffect, useRef } from "react";
+./components/button.tsx:import Link from "next/link";
+./components/button.tsx:import { cva, VariantProps } from "class-variance-authority";
+./components/button.tsx:import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+./components/button.tsx:import classNames from "classnames";
+./components/hero-image.tsx:import classNames from "classnames";
+./components/hero-image.tsx:import { CSSProperties, useEffect, useRef, useState } from "react";
+./components/hero-image.tsx:import { useInView } from "react-intersection-observer";
+./components/command-menu.tsx:import classNames from "classnames";
+./components/command-menu.tsx:import { useEffect, useMemo, useRef, useState } from "react";
+./components/command-menu.tsx:import {
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import {
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import * as React from "react"
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import { Button } from "@/components/ui/button"
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import {
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import { Input } from "@/components/ui/input"
+./.agent/skills/shadcn-ui/examples/data-table.tsx:import {
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { Button } from "@/components/ui/button"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import {
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { Input } from "@/components/ui/input"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import {
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { Textarea } from "@/components/ui/textarea"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { toast } from "@/components/ui/use-toast"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { zodResolver } from "@hookform/resolvers/zod"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import { useForm } from "react-hook-form"
+./.agent/skills/shadcn-ui/examples/form-pattern.tsx:import * as z from "zod"
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import { Button } from "@/components/ui/button"
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import {
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import { Input } from "@/components/ui/input"
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import { Label } from "@/components/ui/label"
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+./.agent/skills/shadcn-ui/examples/auth-layout.tsx:import { useState } from "react"
+./.agent/skills/react-components/resources/component-template.tsx:import React from 'react';
+./.agent/skills/react-components/examples/gold-standard-card.tsx:import React from 'react';
+./.agent/skills/react-components/examples/gold-standard-card.tsx:import { cardData } from '../data/mockData';
+./.agent/skills/remotion/resources/screen-slide-template.tsx:import {AbsoluteFill, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+./.agent/skills/remotion/resources/screen-slide-template.tsx:import {Img} from 'remotion';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {Composition} from 'remotion';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {Sequence} from 'remotion';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {fade} from '@remotion/transitions/fade';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {slide} from '@remotion/transitions/slide';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {TransitionSeries} from '@remotion/transitions';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import {ScreenSlide} from './ScreenSlide';
+./.agent/skills/remotion/examples/WalkthroughComposition.tsx:import screensManifest from '../screens.json';
