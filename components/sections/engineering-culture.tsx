@@ -126,7 +126,7 @@ export const EngineeringCulture = () => {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             className="absolute right-8 top-8 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
-                                            onClick={(e) => {
+                                            onClick={(e: React.MouseEvent) => {
                                                 e.stopPropagation();
                                                 setExpandedId(null);
                                             }}

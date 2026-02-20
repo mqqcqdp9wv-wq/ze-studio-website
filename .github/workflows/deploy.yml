@@ -32,9 +32,6 @@ jobs:
         run: npm ci
       - name: Build with Next.js
         run: npx next build
-      - name: Export with Next.js
-        run: npx next export
-        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
