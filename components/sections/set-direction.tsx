@@ -1,5 +1,7 @@
 "use client";
 
+const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 import { Features } from "../features";
 import {
   AutomatedBacklogIcon,
@@ -21,7 +23,7 @@ export const SetDirection = () => {
             with Roadmaps
           </>
         }
-        image="/roadmap.webp"
+        image={`${bp}/roadmap.webp`}
         imageSize="large"
         text="Plan visually, collaborate in cross-team projects, and make better decisions with progress insights and project updates."
       />
@@ -62,13 +64,13 @@ export const SetDirection = () => {
       <Features.Cards
         features={[
           {
-            image: "/card-updates.webp",
+            image: `${bp}/card-updates.webp`,
             imageClassName: "top-[55%] md:top-[40%] w-full left-[7%]",
             title: "Project updates",
             text: "Keep everyone up-to-date on the health and progress of projects.",
           },
           {
-            image: "/card-roadmaps.webp",
+            image: `${bp}/card-roadmaps.webp`,
             imageClassName: "top-[55%] md:top-[40%] w-full left-[2%]",
             title: "Focus on the big picture",
             text: "Explore every company project in one view to easily identify what needs attention.",

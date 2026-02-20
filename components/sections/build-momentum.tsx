@@ -1,5 +1,7 @@
 "use client";
 
+const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 import { Features } from "../features";
 import {
   AutomatedBacklogIcon,
@@ -21,7 +23,7 @@ export const BuildMomentum = () => {
             with Cycles
           </>
         }
-        image="/cycles.webp"
+        image={`${bp}/cycles.webp`}
         imageSize="large"
         text="Cycles focus your team on what work should happen next. A healthy routine to maintain velocity and make meaningful progress."
       />

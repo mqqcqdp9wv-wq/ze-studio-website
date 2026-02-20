@@ -1,5 +1,7 @@
 "use client";
 
+const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 import { Features } from "../features";
 import {
   AutomatedBacklogIcon,
@@ -21,7 +23,7 @@ export const EnjoyIssueTracking = () => {
             you'll enjoy using
           </>
         }
-        image="/issues.webp"
+        image={`${bp}/issues.webp`}
         text="Create tasks in seconds, discuss issues in context, and breeze through your work in views tailored to you and your team."
       />
       <Features.Grid
@@ -61,13 +63,13 @@ export const EnjoyIssueTracking = () => {
       <Features.Cards
         features={[
           {
-            image: "/card-board.webp",
+            image: `${bp}/card-board.webp`,
             imageClassName: "top-[55%] md:top-[40%] w-[200%]",
             title: "List and board",
             text: "Switch between list and board layout to view work from any angle.",
           },
           {
-            image: "/card-views.webp",
+            image: `${bp}/card-views.webp`,
             imageClassName:
               "top-[45%] left-[12px] md:top-[34%] md:left-[24px] w-[110%]",
             title: "Make it yours",
