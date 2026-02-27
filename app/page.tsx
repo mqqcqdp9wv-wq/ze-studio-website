@@ -8,7 +8,6 @@ import { HomepageHero } from "../components/sections/homepage-hero";
 import { SetDirection } from "../components/sections/set-direction";
 import { UnlikeAnyTool } from "../components/sections/unlike-any-tool";
 import { EngineeringCulture } from "../components/sections/engineering-culture";
-import { EngineeringApproach } from "../components/sections/engineering-approach";
 
 export default function Homepage() {
   return (
@@ -22,15 +21,11 @@ export default function Homepage() {
 
       <div
         className={classNames(
-          "pointer-events-none relative z-0 my-[-12.8rem] h-[60rem] overflow-hidden",
-          "[--color:#4A7BF7] before:absolute before:inset-0 before:bg-radial-faded before:opacity-[0.25]"
+          "pointer-events-none relative z-0 my-[-12.8rem] h-[48rem] overflow-hidden",
+          "after:absolute after:inset-x-0 after:bottom-0 after:z-10 after:h-[20rem] after:bg-gradient-to-b after:from-transparent after:to-background"
         )}
       >
         <StarsIllustration />
-      </div>
-
-      <div className="relative z-10">
-        <EngineeringApproach />
       </div>
 
       <EnjoyIssueTracking />

@@ -1,48 +1,39 @@
 import Link from "next/link";
 import { Container } from "./container";
-import { GithubIcon } from "./icons/github";
-import { Logo } from "./icons/logo";
-import { SlackIcon } from "./icons/slack";
-import { TwitterIcon } from "./icons/twitter";
 
 const footerLinks = [
   {
-    title: "Product",
+    title: "Протоколы",
     links: [
-      { title: "Features", href: "#" },
-      { title: "Integrations", href: "#" },
-      { title: "Pricing", href: "#" },
-      { title: "Changelog", href: "#" },
-      { title: "Docs", href: "#" },
-      { title: "Linear Method", href: "#" },
-      { title: "Download", href: "#" },
+      { title: "Протокол Signal", href: "#" },
+      { title: "Стандарт Carbon", href: "#" },
+      { title: "Пакет Climate Control", href: "#" },
+      { title: "Протокол Shield", href: "#" },
+      { title: "Комплекс Factory Plus", href: "#" },
     ],
   },
   {
-    title: "Company",
+    title: "О студии",
     links: [
-      { title: "About us", href: "#" },
-      { title: "Blog", href: "#" },
-      { title: "Careers", href: "#" },
-      { title: "Customers", href: "#" },
-      { title: "Brand", href: "#" },
+      { title: "Философия Engineering Cool", href: "#" },
+      { title: "Инженерный подход", href: "#" },
+      { title: "Мастер Елена Захарова", href: "#" },
     ],
   },
   {
-    title: "Resources",
+    title: "Клиентам",
     links: [
-      { title: "Community", href: "#" },
-      { title: "Contact", href: "#" },
-      { title: "DPA", href: "#" },
-      { title: "Terms of service", href: "#" },
+      { title: "Система гарантий", href: "#" },
+      { title: "Сертификация и контроль", href: "#" },
+      { title: "FAQ", href: "#" },
     ],
   },
   {
-    title: "Developers",
+    title: "Технологии",
     links: [
-      { title: "API", href: "#" },
-      { title: "Status", href: "#" },
-      { title: "GitHub", href: "#" },
+      { title: "Физика Nano-Carbon", href: "#" },
+      { title: "Керамический императив", href: "#" },
+      { title: "Протокол No-Touch", href: "#" },
     ],
   },
 ];
@@ -52,14 +43,14 @@ export const Footer = () => (
     <Container className="flex flex-col justify-between lg:flex-row">
       <div>
         <div className="flex h-full flex-row justify-between lg:flex-col">
-          <div className="flex items-center text-grey">
-            <span className="logo-gradient text-md font-bold mr-2">ze.studio</span>
-            <span className="text-xs opacity-50">Студия детейлинга</span>
+          <div className="flex flex-col gap-1 text-grey">
+            <span className="logo-gradient text-md font-bold">ze.studio</span>
+            <span className="text-xs opacity-50">
+              Инженерное ателье защиты остекления
+            </span>
           </div>
-          <div className="mt-auto flex space-x-4 text-grey">
-            <TwitterIcon />
-            <GithubIcon />
-            <SlackIcon />
+          <div className="mt-auto pt-6 text-xs text-grey opacity-40">
+            ze.studio • Липецк
           </div>
         </div>
       </div>

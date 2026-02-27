@@ -3,80 +3,104 @@
 const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 import { Features } from "../features";
+import { FlipWords } from "../ui/flip-words";
 import {
-  AutomatedBacklogIcon,
-  CustomViewsIcon,
-  DiscussionIcon,
-  IssuesIcon,
-  ParentSubIcon,
-  WorkflowsIcon,
-} from "../icons/features";
+  CarbonIcon,
+  CeramicIcon,
+  SignalWavesIcon,
+  StabilityIcon,
+  ArmorShieldIcon,
+} from "../icons/materials";
+import { CustomViewsIcon } from "../icons/features";
+import { TiltRevealCard } from "../ui/tilt-reveal-card";
+import { Container } from "../container";
 
 export const EnjoyIssueTracking = () => {
   return (
-    <Features color="194,97,254" colorDark="53,42,79">
+    <Features color="74,123,247" colorDark="30,45,80">
       <Features.Main
         title={
-          <>
-            Issue tracking
-            <br />
-            you'll enjoy using
-          </>
+          <span className="flex flex-col items-center tracking-tighter text-white opacity-0 blur-[10px] translate-y-8 [transition:opacity_1s_ease,transform_1s_cubic-bezier(0.16,1,0.3,1),filter_1s_ease] [.is-visible_&]:opacity-100 [.is-visible_&]:blur-0 [.is-visible_&]:translate-y-0 text-center">
+            <span className="text-gradient text-6xl font-semibold tracking-tighter md:text-8xl">
+              Инновации
+            </span>
+            <span className="mt-6 flex items-center gap-6 text-xl font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.5em]">
+              <span>Структурная</span>
+              <span className="text-white/10">•</span>
+              <span>Логика</span>
+            </span>
+          </span>
         }
         image={`${bp}/issues.webp`}
-        text="Create tasks in seconds, discuss issues in context, and breeze through your work in views tailored to you and your team."
+        text={
+          <span className="block text-white/50 opacity-0 translate-y-4 [transition:opacity_1s_ease_0.2s,transform_1s_cubic-bezier(0.16,1,0.3,1)_0.2s] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-y-0">
+            Одна линейка. Одна{" "}
+            <FlipWords
+              className="text-white font-medium"
+              words={["защита", "прохлада", "ясность", "логика"]}
+            />
+          </span>
+        }
       />
       <Features.Grid
         features={[
           {
-            icon: ParentSubIcon,
-            title: "Parent and sub-issues.",
-            text: "Break larger takss into smaller issues",
+            icon: CarbonIcon,
+            title: "Углерод.",
+            text: "Максимальная защита от выцветания. Гарантия 10 лет.",
           },
           {
-            icon: AutomatedBacklogIcon,
-            title: "Automated backlog.",
-            text: "Linear will auto-close and auto-archive issues.",
+            icon: CeramicIcon,
+            title: "Керамика.",
+            text: "Прохлада без штрафов. 99% ИК-фильтрация. ГОСТ.",
           },
           {
-            icon: WorkflowsIcon,
-            title: "Custom workflows",
-            text: "Define unique issue states for each team.",
+            icon: SignalWavesIcon,
+            title: "Сигнал.",
+            text: "Без металла. Стабильная работа 5G, GPS и систем ADAS.",
           },
           {
             icon: CustomViewsIcon,
-            title: "Filters and custom views.",
-            text: "See only what's relevant for you.",
+            title: "Оптика.",
+            text: "Глубокий угольный тон без цветовых искажений.",
           },
           {
-            icon: DiscussionIcon,
-            title: "Discussion.",
-            text: "Collaborate on issues without losing context.",
+            icon: StabilityIcon,
+            title: "Стойкость.",
+            text: "Удержание цвета <1% после 1000 часов. В 8 раз выше аналогов.",
           },
           {
-            icon: IssuesIcon,
-            title: "Issue templates.",
-            text: "Guide your team to write effective issues.",
+            icon: ArmorShieldIcon,
+            title: "Броня.",
+            text: "Новый уровень невидимой защиты.",
           },
         ]}
       />
-      <Features.Cards
-        features={[
-          {
-            image: `${bp}/card-board.webp`,
-            imageClassName: "top-[55%] md:top-[40%] w-[200%]",
-            title: "List and board",
-            text: "Switch between list and board layout to view work from any angle.",
-          },
-          {
-            image: `${bp}/card-views.webp`,
-            imageClassName:
-              "top-[45%] left-[12px] md:top-[34%] md:left-[24px] w-[110%]",
-            title: "Make it yours",
-            text: "Quickly apply filters and operators to refine your issue lists and create custom views.",
-          },
-        ]}
-      />
+      <Container>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 perspective-[1000px]">
+          <TiltRevealCard
+            title="MonoCarbon"
+            description="Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие."
+            glowColor="#4A7BF7"
+            numberPrefix="01"
+            href="/materials/monocarbon"
+          />
+          <TiltRevealCard
+            title="Centum"
+            description="Атермальная нанокерамика. 99% ИК-блокировки. ГОСТ. EV-совместимость."
+            glowColor="#00E1F4"
+            numberPrefix="02"
+            href="/materials/centum"
+          />
+          <TiltRevealCard
+            title="Rescue"
+            description="Бронеплёнка для лобового. Поглощение удара без искажения оптики."
+            glowColor="#8B5CF6"
+            numberPrefix="03"
+            href="/materials/rescue"
+          />
+        </div>
+      </Container>
     </Features>
   );
 };
