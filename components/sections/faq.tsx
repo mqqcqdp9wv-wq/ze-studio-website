@@ -51,7 +51,7 @@ export const Faq = () => {
                         <span className="text-gradient text-6xl font-semibold tracking-tighter md:text-8xl">
                             Вопросы
                         </span>
-                        <span className="mt-2 flex items-center gap-6 text-xl font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.5em]">
+                        <span className="mt-2 flex items-center gap-2 text-[10px] font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.15em] md:tracking-[0.5em]">
                             <span>Частые</span>
                             <span className="text-white/10">•</span>
                             <span>Ответы</span>

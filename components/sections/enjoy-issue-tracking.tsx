@@ -17,14 +17,14 @@ import { Container } from "../container";
 
 export const EnjoyIssueTracking = () => {
   return (
-    <Features color="74,123,247" colorDark="30,45,80">
+    <Features color="80,140,255" colorDark="15,30,80">
       <Features.Main
         title={
           <span className="flex flex-col items-center tracking-tighter text-white opacity-0 blur-[10px] translate-y-8 [transition:opacity_1s_ease,transform_1s_cubic-bezier(0.16,1,0.3,1),filter_1s_ease] [.is-visible_&]:opacity-100 [.is-visible_&]:blur-0 [.is-visible_&]:translate-y-0 text-center">
             <span className="text-gradient text-6xl font-semibold tracking-tighter md:text-8xl">
               Инновации
             </span>
-            <span className="mt-6 flex items-center gap-6 text-xl font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.5em]">
+            <span className="mt-2 flex items-center gap-2 text-[10px] font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.15em] md:tracking-[0.5em]">
               <span>Структурная</span>
               <span className="text-white/10">•</span>
               <span>Логика</span>
