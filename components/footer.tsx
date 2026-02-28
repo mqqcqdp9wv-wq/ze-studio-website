@@ -39,17 +39,23 @@ const footerLinks = [
 ];
 
 export const Footer = () => (
-  <footer className="mt-12 border-t border-transparent-white py-[5.6rem] text-sm">
+  <footer className="relative mt-12 border-t border-transparent-white py-[5.6rem] text-sm overflow-hidden">
+    {/* top glow — subtle gradient matching the FAQ block above */}
+    <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-[linear-gradient(to_right,transparent,rgba(93,52,221,0.4)_40%,rgba(93,52,221,0.4)_60%,transparent)]" />
+    <div className="pointer-events-none absolute inset-x-0 top-0 h-[20rem] bg-[radial-gradient(ellipse_60%_100%_at_50%_0%,rgba(93,52,221,0.06),transparent)]" />
+
     <Container className="flex flex-col justify-between lg:flex-row">
       <div>
         <div className="flex h-full flex-row justify-between lg:flex-col">
           <div className="flex flex-col gap-1 text-grey">
-            <span className="logo-gradient text-md font-bold">ze.studio</span>
-            <span className="text-xs opacity-50">
+            <span className="logo-gradient text-md font-semibold tracking-[0.15em] uppercase">
+              ze.studio
+            </span>
+            <span className="text-xs opacity-50 tracking-wide">
               Инженерное ателье защиты остекления
             </span>
           </div>
-          <div className="mt-auto pt-6 text-xs text-grey opacity-40">
+          <div className="mt-auto pt-6 text-xs text-grey opacity-60">
             ze.studio • Липецк
           </div>
         </div>
@@ -60,7 +66,9 @@ export const Footer = () => (
             key={column.title}
             className="mt-10 min-w-[50%] lg:mt-0 lg:min-w-[18rem]"
           >
-            <h3 className="mb-3 font-medium">{column.title}</h3>
+            <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-white/30">
+              {column.title}
+            </h3>
             <ul>
               {column.links.map((link) => (
                 <li key={link.title} className="[&_a]:last:mb-0">
