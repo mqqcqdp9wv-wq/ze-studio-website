@@ -33,3 +33,21 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# AI / Agent files
+.agent/
+.claude/
+
+# Temp / research files
+findings/
+logs/
+*.zip
+*.xlsx
+*.docx
+*.py
+stitch*.json
+stitch*.md
+PROMPT-*.md
+local_site_check.md
+imports.txt
+tsconfig.tsbuildinfo

@@ -1,28 +1,89 @@
-# Rebuilding Linear.app's homepage with Next.js and Tailwind
+# ZE Studio — Landing Page
 
-**NOTE:** I am NOT affiliated with [Linear.app](https://linear.app/), but just really like their website, and think rebuilding this with Tailwind can teach a lot to people. All of the images in `/public/img` are owned by Linear, they are only used as teaching material here.
+Лендинг студии тонировки автомобилей **ZE Studio** (г. Липецк).
+Сайт рассказывает о материалах, технологии монтажа и преимуществах студии.
 
-## Work in progress 🚧
+🌐 **Живой сайт:** [ze-studio48.ru](https://ze-studio48.ru)
+🔗 **Preview:** [mqqcqdp9wv-wq.github.io/ze-studio-website](https://mqqcqdp9wv-wq.github.io/ze-studio-website/)
 
-This version is the end result of the first video. Any next part will also be committed in main, and extend this current version.
+---
 
-## See what we build so far
+## Стек
 
-[Visit the preview of what we build here.](https://rebuilding-linear.vercel.app/)
+| Технология | Назначение |
+|---|---|
+| Next.js 13 (App Router) | Фреймворк, статический экспорт |
+| TypeScript | Типизация |
+| Tailwind CSS | Стилизация |
+| Framer Motion | Анимации |
 
-## Video links 📺
+---
 
-* [Part One](https://youtu.be/ls_b-1a0ZUc): Setting up the project, building the header, main navigation, part of the hero component and the footer.
-* [Part Two](https://youtu.be/R5PjNcIdAzU): Building the super detailed animated hero on the homepage.
-* [Part Three](https://youtu.be/ar_NCPlRt_U): Building the client logo's and USP section.
-* [Part Four](https://youtu.be/RoQ0MXiWQoY): Building the interactive shortcuts keyboard.
-* [Part Five](https://youtu.be/lRtiKHy5Db8): Building the command menu.
-* [Part Six](https://youtu.be/21kgdgWiNDs): Building feature blocks with awesome gradients.
+## Структура проекта
 
-## Running this project
+```
+ze-studio-website/
+├── app/
+│   ├── layout.tsx               # Корневой layout (Header, Footer, шрифты)
+│   └── page.tsx                 # Главная страница — порядок секций
+│
+├── components/
+│   ├── sections/                # Секции страницы
+│   │   ├── homepage-hero.tsx        # Главный экран (Hero)
+│   │   ├── clients.tsx              # Марки авто (бегущая строка)
+│   │   ├── enjoy-issue-tracking.tsx # Блок материалов Rayno
+│   │   ├── build-momentum.tsx       # Блок исполнения / монтажа
+│   │   └── set-direction.tsx        # Финальный CTA
+│   │
+│   ├── icons/                   # SVG-иконки
+│   │   ├── features.tsx             # Иконки для фичей
+│   │   ├── materials.tsx            # Иконки блока материалов
+│   │   └── logo.tsx                 # Логотип ZE Studio
+│   │
+│   ├── ui/                      # Переиспользуемые UI-компоненты
+│   │   └── flip-words.tsx           # Анимированная смена слов
+│   │
+│   ├── material-carousel.tsx    # Карточки материалов (MonoCarbon, Centum, Rescue)
+│   ├── header.tsx               # Хедер с навигацией
+│   ├── footer.tsx               # Футер
+│   ├── features.tsx             # Обёртка для Feature-секций
+│   └── container.tsx            # Контейнер с max-width
+│
+├── public/                      # Статика (изображения, видео)
+├── styles/
+│   └── globals.css              # Глобальные стили и утилиты
+├── tailwind.config.js           # Кастомная тема Tailwind
+└── next.config.js               # Конфиг Next.js (basePath, static export)
+```
 
-Run `yarn` or `npm i` to install the project. Next run `yarn dev` or `npm run dev` to view the project by clicking the link in the terminal.
+---
 
-## Design remains copyrighted by Linear, it can only be used for educational purposes.
+## Запуск локально
 
-See the [LICENSE](/LICENSE.md) for more information about reusing this code.
+```bash
+# Установить зависимости
+npm install
+
+# Запустить dev-сервер
+npm run dev
+# → http://localhost:3000
+
+# Собрать статику для продакшена
+npm run build
+```
+
+---
+
+## Деплой
+
+Деплой автоматический через **GitHub Actions** при пуше в `main`.
+Собирается статический экспорт Next.js и публикуется на GitHub Pages.
+
+Workflow: `.github/workflows/nextjs.yml`
+
+---
+
+## Автор
+
+**Влад Любимов** — разработка и дизайн
+Студия: [ZE Studio](https://ze-studio48.ru) — профессиональная тонировка, Липецк
