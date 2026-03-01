@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?";
 
 function randomChar() {
     return CHARS[Math.floor(Math.random() * CHARS.length)];
@@ -12,55 +12,81 @@ function randomChar() {
 interface TextScrambleProps {
     text: string;
     className?: string;
-    speed?: number;   // ms per frame
-    delay?: number;   // ms before start
+    delay?: number;  // ms before starting
 }
 
-export const TextScramble = ({ text, className, speed = 35, delay = 0 }: TextScrambleProps) => {
-    const [display, setDisplay] = useState<string>(text.replace(/./g, " "));
-    const frameRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+export const TextScramble = ({ text, className, delay = 0 }: TextScrambleProps) => {
+    const [display, setDisplay] = useState<string[]>(() => text.split("").map(() => " "));
+    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
+    const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
     useEffect(() => {
         if (!inView) return;
 
-        let iteration = 0;
-        const total = text.length;
+        timersRef.current.forEach(clearTimeout);
+        timersRef.current = [];
 
-        const timer = setTimeout(() => {
-            const run = () => {
-                setDisplay(
-                    text
-                        .split("")
-                        .map((char, i) => {
-                            if (char === " ") return " ";
-                            if (i < iteration) return char;
-                            return randomChar();
-                        })
-                        .join("")
-                );
+        const chars = text.split("");
 
-                iteration += 0.5;
+        chars.forEach((targetChar, idx) => {
+            if (targetChar === " ") {
+                setDisplay(prev => {
+                    const next = [...prev];
+                    next[idx] = " ";
+                    return next;
+                });
+                return;
+            }
 
-                if (iteration < total + 1) {
-                    frameRef.current = setTimeout(run, speed);
-                } else {
-                    setDisplay(text);
-                }
+            // Each character gets a unique random start delay and scramble duration
+            const charDelay = delay + Math.random() * 700 + idx * 55;
+            const scrambleDuration = 450 + Math.random() * 1000; // 450–1450ms of scrambling
+            const intervalSpeed = 65 + Math.random() * 90;        // 65–155ms per frame (slow & chaotic)
+
+            let elapsed = 0;
+            let settled = false;
+
+            const startScramble = () => {
+                const tick = () => {
+                    if (settled) return;
+                    elapsed += intervalSpeed;
+
+                    if (elapsed >= scrambleDuration) {
+                        settled = true;
+                        setDisplay(prev => {
+                            const next = [...prev];
+                            next[idx] = targetChar;
+                            return next;
+                        });
+                        return;
+                    }
+
+                    setDisplay(prev => {
+                        const next = [...prev];
+                        next[idx] = randomChar();
+                        return next;
+                    });
+
+                    const jitter = Math.random() * 60 - 30;
+                    const timer = setTimeout(tick, intervalSpeed + jitter);
+                    timersRef.current.push(timer);
+                };
+
+                tick();
             };
 
-            run();
-        }, delay);
+            const startTimer = setTimeout(startScramble, charDelay);
+            timersRef.current.push(startTimer);
+        });
 
         return () => {
-            clearTimeout(timer);
-            if (frameRef.current) clearTimeout(frameRef.current);
+            timersRef.current.forEach(clearTimeout);
         };
-    }, [inView, text, speed, delay]);
+    }, [inView, text, delay]);
 
     return (
         <span ref={ref} className={className}>
-            {display}
+            {display.join("")}
         </span>
     );
 };

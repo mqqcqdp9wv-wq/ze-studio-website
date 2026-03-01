@@ -251,3 +251,37 @@
   mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
+
+/* Shimmer — луч через overlay, текст не двигается */
+@keyframes shimmer-beam {
+  0% {
+    transform: translateX(-150%);
+  }
+
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.text-shimmer-desc {
+  position: relative;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.text-shimmer-desc::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 35%;
+  height: 140%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5),
+      transparent);
+  animation: shimmer-beam 10s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  filter: blur(6px);
+}

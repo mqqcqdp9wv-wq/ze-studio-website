@@ -130,6 +130,14 @@ module.exports = {
         "0%": { transform: "translateX(0)" },
         "100%": { transform: "translateX(-50%)" },
       },
+      "text-shimmer": {
+        from: { "background-position": "0 0" },
+        to: { "background-position": "-200% 0" },
+      },
+      "tracking-in": {
+        from: { "letter-spacing": "0.4em", opacity: 0, filter: "blur(4px)" },
+        to: { "letter-spacing": "normal", opacity: 1, filter: "blur(0)" },
+      },
     },
     animation: {
       "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
@@ -144,6 +152,8 @@ module.exports = {
       bounce: "240ms ease 0s 1 running bounce",
       marquee: "marquee 12s linear infinite",
       "marquee-desktop": "marquee 25s linear infinite",
+      "text-shimmer": "text-shimmer 2.5s infinite linear",
+      "tracking-in": "tracking-in 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
     },
   },
   plugins: [],

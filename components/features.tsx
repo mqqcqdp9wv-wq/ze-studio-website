@@ -19,7 +19,7 @@ export const Features = ({ children, color, colorDark }: FeaturesProps) => {
     <section
       ref={ref}
       className={classNames(
-        "after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(ellipse_at_center,_black_10%,_transparent_70%)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
+        "after:bg-[radial-gradient(ellipse_80%_30%_at_50%_15%,rgba(var(--feature-color),0.12),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(ellipse_at_center,_black_10%,_transparent_70%)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
         inView &&
         "is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(2)]",
         !inView && "before:rotate-180 before:opacity-40"
@@ -112,14 +112,26 @@ const FeatureGrid = ({ features }: FeatureGridProps) => {
             variants={itemVariants}
             className="flex items-start gap-5"
           >
-            <span className="shrink-0 mt-[3px] text-[11px] font-mono text-white/25 select-none w-5 text-right">
+            <span className="shrink-0 mt-[4px] text-[10px] font-mono select-none w-5 text-right text-white/20 uppercase tracking-widest leading-none">
               {String(i + 1).padStart(2, "0")}
             </span>
             <div>
-              <p className="text-white font-semibold text-xl mb-1 tracking-tight font-mono">
-                <TextScramble text={title} speed={28} delay={i * 180} />
+              <p
+                className="relative flex items-center gap-1 font-semibold text-[17px] mb-1 leading-snug tracking-tighter font-mono uppercase"
+                style={{
+                  background: `linear-gradient(to bottom, #fff 20%, rgba(255,255,255,0.45))`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                <TextScramble text={title.replace(/\.$/, "")} delay={i * 180} />
+                <span style={{ color: `rgb(var(--feature-color))` }}>.</span>
               </p>
-              <p className="text-white/45 text-sm leading-relaxed">{text}</p>
+              <p
+                className="text-shimmer-desc text-sm leading-relaxed tracking-wide"
+                style={{ animationDelay: `${i * 2}s` }}
+              >{text}</p>
             </div>
           </motion.div>
         ))}

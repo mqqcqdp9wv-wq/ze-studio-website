@@ -13,6 +13,7 @@ import {
 } from "../icons/materials";
 import { CustomViewsIcon } from "../icons/features";
 import { TiltRevealCard } from "../ui/tilt-reveal-card";
+import { MobileCardStack } from "../ui/mobile-card-stack";
 import { Container } from "../container";
 
 export const EnjoyIssueTracking = () => {
@@ -77,7 +78,33 @@ export const EnjoyIssueTracking = () => {
         ]}
       />
       <Container>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 perspective-[1000px]">
+        {/* MOBILE: 3D stacking cards */}
+        <MobileCardStack cards={[
+          {
+            title: "MonoCarbon",
+            description: "Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие.",
+            glowColor: "#4A7BF7",
+            numberPrefix: "01",
+            href: "/materials/monocarbon",
+          },
+          {
+            title: "Centum",
+            description: "Атермальная нанокерамика. 99% ИК-блокировки. ГОСТ. EV-совместимость.",
+            glowColor: "#00E1F4",
+            numberPrefix: "02",
+            href: "/materials/centum",
+          },
+          {
+            title: "Rescue",
+            description: "Бронеплёнка для лобового. Поглощение удара без искажения оптики.",
+            glowColor: "#8B5CF6",
+            numberPrefix: "03",
+            href: "/materials/rescue",
+          },
+        ]} />
+
+        {/* DESKTOP: 3-column grid */}
+        <div className="hidden md:grid grid-cols-3 gap-5 perspective-[1000px]">
           <TiltRevealCard
             title="MonoCarbon"
             description="Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие."
