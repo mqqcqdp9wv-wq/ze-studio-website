@@ -2,6 +2,7 @@ import { Button, Highlight } from "../button";
 import { Hero, HeroTitle, HeroSubtitle } from "../hero";
 import { ChevronIcon } from "../icons/chevron";
 import { Container } from "../container";
+import { SparkleButton } from "../ui/sparkle-button";
 
 export const HomepageHero = () => (
   <div className="relative w-full h-screen overflow-hidden">
@@ -39,17 +40,16 @@ export const HomepageHero = () => (
         <HeroSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms] !font-normal !text-white/80">
           Стабильная защита от жары. Физика нанокерамики на десятилетие.
         </HeroSubtitle>
-        <Button
-          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] !bg-white/[0.05] !backdrop-blur-[20px] !border !border-white/20 !text-white hover:!bg-white/[0.08] hover:!border-white/40 !px-12 !h-14 !text-lg !font-bold tracking-tight shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all active:scale-95 group/btn"
+        <SparkleButton
           href="https://wa.me/79158582115"
-          variant="primary"
-          size="large"
+          external
+          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] rounded-full bg-white/[0.05] backdrop-blur-[20px] border border-white/20 text-white hover:bg-white/[0.08] hover:border-white/40 px-12 h-14 text-lg font-bold tracking-tight shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all active:scale-95 group/btn flex items-center justify-center"
         >
           <span className="flex items-center gap-2 relative">
             Записаться
             <ChevronIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
           </span>
-        </Button>
+        </SparkleButton>
       </Hero>
     </Container>
   </div>

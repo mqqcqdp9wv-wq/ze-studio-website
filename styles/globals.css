@@ -169,6 +169,22 @@
     transform: translateY(-1px);
   }
 
+  /* Sparkle button particles */
+  @keyframes ze-sparkle {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) rotate(0deg) scale(0);
+    }
+    25% {
+      opacity: 1;
+      transform: translate(calc(var(--tx) * 0.4), calc(var(--ty) * 0.4)) rotate(calc(var(--rot) * 0.4)) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.4);
+    }
+  }
+
   /* Letter animation on load */
   @keyframes letter-appear {
     from {

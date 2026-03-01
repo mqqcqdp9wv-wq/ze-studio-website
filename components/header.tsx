@@ -15,6 +15,7 @@ import {
   Newspaper,
   Phone,
 } from "lucide-react";
+import { SparkleButton } from "./ui/sparkle-button";
 
 const mobileNavItems = [
   { label: "Главная", href: "/", icon: Home },
@@ -123,9 +124,9 @@ export const Header = () => {
         </div>
 
         <div className="ml-auto flex h-full items-center">
-          <Link href="https://wa.me/79158582115" className="nav-action-btn">
+          <SparkleButton href="https://wa.me/79158582115" external className="nav-action-btn">
             Записаться
-          </Link>
+          </SparkleButton>
         </div>
 
         <button
