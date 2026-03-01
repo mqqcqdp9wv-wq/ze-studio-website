@@ -53,8 +53,8 @@ export const Clients = () => {
           Работаем с любыми <br /> марками автомобилей
         </h2>
         <p className="text-white/40 text-xl md:text-2xl font-normal tabular-nums flex flex-wrap items-center justify-center gap-x-2">
-          <span>Более <span className="text-white font-medium inline-block w-[6.5ch] text-center"><AnimatedNumber value={20000} duration={1500} /></span> проектов</span>
-          <span>выполнено за <span className="text-white font-medium inline-block w-[2.5ch] text-center"><AnimatedNumber value={18} duration={1500} /></span> лет</span>
+          <span>Более <span className="text-white font-medium min-w-[70px] inline-block text-center"><AnimatedNumber value={20000} duration={1500} /></span> проектов</span>
+          <span>выполнено за <span className="text-white font-medium min-w-[24px] inline-block text-center"><AnimatedNumber value={18} duration={1500} /></span> лет</span>
         </p>
       </div>
 

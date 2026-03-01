@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { Container } from "./container";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { TextScramble } from "./ui/text-scramble";
 
 type FeaturesProps = {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ export const Features = ({ children, color, colorDark }: FeaturesProps) => {
     <section
       ref={ref}
       className={classNames(
-        "after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(100%_100%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
+        "after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(ellipse_at_center,_black_10%,_transparent_70%)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
         inView &&
         "is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(2)]",
         !inView && "before:rotate-180 before:opacity-40"
@@ -89,47 +90,53 @@ type FeatureGridProps = {
   }[];
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
 const FeatureGrid = ({ features }: FeatureGridProps) => {
   return (
     <Container>
+      {/* MOBILE: numbered 1-col list with TextScramble + stagger */}
       <motion.div
-        variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="mb-16 grid w-full grid-cols-1 place-items-start gap-y-10 px-6 text-md text-primary-text md:mb-[14rem] md:grid-cols-3 md:place-items-center md:gap-y-9 md:px-0 md:text-md"
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ staggerChildren: 0.18 }}
+        className="flex flex-col gap-7 mb-16 md:hidden"
       >
-        {features.map(({ title, text, icon: Icon }) => (
+        {features.map(({ title, text }, i) => (
           <motion.div
-            variants={itemVariants}
-            className="w-full max-w-[25.6rem] text-left md:text-center [&_svg]:hidden md:[&_svg]:inline md:[&_svg]:mr-[6px] md:[&_svg]:mb-[2px] md:[&_svg]:fill-white"
             key={title}
+            variants={itemVariants}
+            className="flex items-start gap-5"
           >
-            <Icon />
-            <span className="block text-white font-medium text-xl mb-1 md:inline md:text-[inherit] md:font-normal md:mb-0">{title}</span>{" "}
-            <span className="block text-white/50 leading-relaxed md:inline md:leading-normal md:text-primary-text">{text}</span>
+            <span className="shrink-0 mt-[3px] text-[11px] font-mono text-white/25 select-none w-5 text-right">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <p className="text-white font-semibold text-xl mb-1 tracking-tight font-mono">
+                <TextScramble text={title} speed={28} delay={i * 180} />
+              </p>
+              <p className="text-white/45 text-sm leading-relaxed">{text}</p>
+            </div>
           </motion.div>
         ))}
       </motion.div>
+
+      {/* DESKTOP: original 3-col grid with icons */}
+      <div className="hidden mb-16 md:grid w-full grid-cols-3 place-items-center gap-y-9 text-md text-primary-text md:mb-[14rem]">
+        {features.map(({ title, text, icon: Icon }) => (
+          <div
+            className="max-w-[25.6rem] [&_svg]:mb-[4px] [&_svg]:fill-white md:[&_svg]:mr-[6px] md:[&_svg]:mb-[2px] md:[&_svg]:inline"
+            key={title}
+          >
+            <Icon />
+            <span className="block text-white md:inline">{title}</span> {text}
+          </div>
+        ))}
+      </div>
     </Container>
   );
 };
