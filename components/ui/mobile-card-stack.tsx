@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import classNames from "classnames";
 
 type CardData = {
     title: string;
@@ -11,10 +13,10 @@ type CardData = {
 };
 
 // Z-depth transforms for each card (index 0 = back, 2 = front)
-// Matches the freefrontend CSS demo logic
+// Matches the freefrontend CSS demo logic but enhanced for Framer Motion
 const STACK = [
-    { z: -70, y: 22, opacity: 0.55, blur: 3.5 }, // card 1 — furthest back
-    { z: 10, y: -8, opacity: 0.82, blur: 1.2 }, // card 2 — middle
+    { z: -70, y: 22, opacity: 0.55, blur: 4 }, // card 1 — furthest back
+    { z: 10, y: -8, opacity: 0.85, blur: 1.5 }, // card 2 — middle
     { z: 95, y: -36, opacity: 1, blur: 0 }, // card 3 — front / closest
 ];
 
@@ -22,147 +24,128 @@ export const MobileCardStack = ({ cards }: { cards: CardData[] }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <div className="md:hidden flex flex-col items-center gap-6">
-            <ul
+        <div className="md:hidden flex flex-col items-center gap-7 py-8">
+            <motion.ul
+                className="relative w-full cursor-pointer flex flex-col"
                 style={{
-                    position: "relative",
                     transformStyle: "preserve-3d",
-                    perspective: "500px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: expanded ? "14px" : "0",
-                    transition: "gap 500ms ease",
-                    width: "100%",
+                    perspective: "800px",
                 }}
+                animate={{ gap: expanded ? "14px" : "0px" }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setExpanded((e) => !e)}
             >
                 {cards.map((card, i) => {
                     const t = STACK[i] ?? STACK[STACK.length - 1];
 
                     return (
-                        <li
+                        <motion.li
                             key={card.title}
+                            className="relative list-none origin-bottom overflow-hidden border border-white/[0.08] backdrop-blur-md"
                             style={{
-                                listStyle: "none",
+                                background: "rgba(10, 10, 10, 0.75)",
+                                borderRadius: "2rem",
+                            }}
+                            animate={{
                                 transform: expanded
-                                    ? "translateZ(0) translateY(0)"
+                                    ? "translateZ(0px) translateY(0px)"
                                     : `translateZ(${t.z}px) translateY(${t.y}px)`,
                                 opacity: expanded ? 1 : t.opacity,
-                                filter: expanded ? "blur(0)" : `blur(${t.blur}px)`,
-                                transition: `transform 500ms ${i * 60}ms ease, opacity 500ms ${i * 60}ms ease, filter 500ms ${i * 60}ms ease`,
-                                borderRadius: "2.4rem",
-                                overflow: "hidden",
-                                border: "1px solid rgba(255,255,255,0.07)",
-                                background: "#090909",
-                                cursor: "pointer",
-                                position: "relative",
+                                filter: expanded ? "blur(0px)" : `blur(${t.blur}px)`,
+                            }}
+                            transition={{
+                                duration: 0.6,
+                                delay: i * 0.05,
+                                ease: [0.16, 1, 0.3, 1],
                             }}
                         >
-                            {/* Glow bg */}
+                            {/* Internal Glow Effect */}
                             <div
+                                className="pointer-events-none absolute inset-0 opacity-40"
                                 style={{
-                                    position: "absolute",
-                                    inset: 0,
-                                    pointerEvents: "none",
-                                    background: `radial-gradient(ellipse 70% 55% at 65% 110%, ${card.glowColor}28, transparent)`,
+                                    background: `radial-gradient(ellipse 65% 50% at 80% 110%, ${card.glowColor}, transparent)`,
                                 }}
                             />
 
-                            {/* Card content */}
-                            <div
-                                style={{
-                                    position: "relative",
-                                    zIndex: 1,
-                                    padding: "1.8rem 2rem",
-                                    display: "flex",
-                                    gap: "1.4rem",
-                                    alignItems: "center",
-                                }}
-                            >
-                                {/* Dot */}
+                            {/* Glass subtle top highlight */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none" />
+
+                            <div className="relative z-10 flex items-center gap-5 p-6 pr-8">
+                                {/* Visual Indicator (Dot) */}
                                 <div
-                                    style={{
-                                        flexShrink: 0,
-                                        width: 36,
-                                        height: 36,
-                                        borderRadius: "50%",
-                                        border: `1px solid ${card.glowColor}40`,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
+                                    className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border"
+                                    style={{ borderColor: `${card.glowColor}40` }}
                                 >
-                                    <div
+                                    <motion.div
+                                        className="h-2 w-2 rounded-full"
                                         style={{
-                                            width: 8,
-                                            height: 8,
-                                            borderRadius: "50%",
                                             background: card.glowColor,
-                                            boxShadow: `0 0 10px 2px ${card.glowColor}70`,
+                                            boxShadow: `0 0 12px ${card.glowColor}`,
+                                        }}
+                                        animate={
+                                            !expanded
+                                                ? { scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }
+                                                : { scale: 1, opacity: 1 }
+                                        }
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            ease: "easeInOut",
                                         }}
                                     />
+                                    {!expanded && (
+                                        <motion.div
+                                            className="absolute inset-0 rounded-full"
+                                            style={{ border: `1px solid ${card.glowColor}` }}
+                                            animate={{ scale: [1, 1.3], opacity: [0.5, 0] }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeOut",
+                                            }}
+                                        />
+                                    )}
                                 </div>
 
-                                {/* Text */}
-                                <div style={{ flex: 1 }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                                {/* Text Content */}
+                                <div className="flex-1 overflow-hidden">
+                                    <div className="mb-1 flex items-center gap-3">
                                         <span
-                                            style={{
-                                                fontFamily: "monospace",
-                                                fontSize: 9,
-                                                letterSpacing: "0.2em",
-                                                textTransform: "uppercase",
-                                                color: `${card.glowColor}90`,
-                                            }}
+                                            className="font-mono text-[9px] uppercase tracking-[0.2em]"
+                                            style={{ color: `${card.glowColor}aa` }}
                                         >
                                             {card.numberPrefix}
                                         </span>
-                                        <h3
-                                            style={{
-                                                fontSize: 18,
-                                                fontWeight: 700,
-                                                letterSpacing: "-0.04em",
-                                                color: "#fff",
-                                                lineHeight: 1,
-                                            }}
-                                        >
+                                        <h3 className="font-mono text-md font-bold uppercase tracking-tighter text-white">
                                             {card.title}
                                         </h3>
                                     </div>
-                                    <p style={{ fontSize: 12.5, color: "rgba(255,255,255,0.42)", lineHeight: 1.5 }}>
+                                    <p className="line-clamp-2 font-sans text-xs leading-relaxed text-white/45">
                                         {card.description}
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Bottom glow line */}
+                            {/* Technical Bottom Line */}
                             <div
+                                className="absolute bottom-0 left-0 right-0 h-[1px] opacity-30"
                                 style={{
-                                    position: "absolute",
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    height: 1,
-                                    background: `linear-gradient(90deg, transparent, ${card.glowColor}50, transparent)`,
+                                    background: `linear-gradient(90deg, transparent, ${card.glowColor}, transparent)`,
                                 }}
                             />
-                        </li>
+                        </motion.li>
                     );
                 })}
-            </ul>
+            </motion.ul>
 
-            {/* Hint */}
-            <span
-                style={{
-                    fontFamily: "monospace",
-                    fontSize: 10,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.2)",
-                }}
-            >
-                {expanded ? "tap to collapse" : "tap to expand"}
-            </span>
+            {/* Control Hint */}
+            <div className="flex items-center gap-3 opacity-30 group">
+                <div className="h-[1px] w-4 bg-white/50" />
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] font-medium text-white select-none">
+                    {expanded ? "protocol: collapse" : "protocol: expand"}
+                </span>
+                <div className="h-[1px] w-4 bg-white/50" />
+            </div>
         </div>
     );
 };

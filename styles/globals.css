@@ -163,10 +163,33 @@
 
   .nav-action-btn:hover {
     @apply text-white;
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
+  }
+
+  /* SparkleButton — brand glow + spotlight vignette on hover */
+  .ze-sparkle-btn {
+    transition:
+      background-color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.4s ease,
+      color 0.35s ease !important;
+  }
+
+  .ze-sparkle-btn:hover {
+    background-color: rgba(74, 123, 247, 0.28) !important;
+    border-color: rgba(74, 123, 247, 0.75) !important;
+    color: #fff !important;
+    box-shadow:
+      /* Dark spotlight vignette — dims everything around the button */
+      0 0 0 100vmax rgba(0, 0, 0, 0.5),
+      /* Tight inner glow ring */
+      0 0 0 1px rgba(74, 123, 247, 0.5),
+      /* Close bright glow */
+      0 0 18px 4px rgba(74, 123, 247, 0.8),
+      /* Medium spread */
+      0 0 50px 14px rgba(74, 123, 247, 0.45),
+      /* Wide purple aura */
+      0 0 90px 30px rgba(139, 92, 246, 0.22) !important;
   }
 
   /* Sparkle button particles */

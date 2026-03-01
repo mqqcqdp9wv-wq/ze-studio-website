@@ -13,23 +13,12 @@ interface Particle {
   rot: number;
   size: number;
   dur: number;
-  color: string;
   glyph: string;
 }
 
 let pid = 0;
 
-// ZE Studio brand colors — blue, cyan, purple, white
-const COLORS = [
-  "#4A7BF7",          // MonoCarbon blue
-  "#00E1F4",          // Centum cyan
-  "#8B5CF6",          // Rescue purple
-  "rgba(255,255,255,0.9)", // white
-  "#7AAEFF",          // light blue
-  "#C4B5FD",          // light purple
-];
-
-// Mix of star glyphs — different sizes feel
+// Mix of star glyphs
 const GLYPHS = ["✦", "✦", "✦", "·", "✧", "⋆"];
 
 export const SparkleButton = ({
@@ -63,7 +52,6 @@ export const SparkleButton = ({
       rot: (Math.random() - 0.5) * 220,
       size: 6 + Math.random() * 9,
       dur: 500 + Math.random() * 400,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
       glyph: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
     };
     setParticles((prev) => [...prev, p]);
@@ -101,8 +89,8 @@ export const SparkleButton = ({
             left: `${p.x}%`,
             top: `${p.y}%`,
             fontSize: p.size,
-            color: p.color,
-            filter: `drop-shadow(0 0 4px ${p.color})`,
+            color: "rgba(255, 255, 255, 0.95)",
+            filter: "drop-shadow(0 0 3px rgba(255,255,255,0.9))",
             animation: `ze-sparkle ${p.dur}ms ease-out forwards`,
             "--tx": `${p.tx}px`,
             "--ty": `${p.ty}px`,
@@ -116,7 +104,7 @@ export const SparkleButton = ({
     </>
   );
 
-  const cls = classNames("relative overflow-visible", className);
+  const cls = classNames("relative overflow-visible ze-sparkle-btn", className);
 
   if (href && external) {
     return (
