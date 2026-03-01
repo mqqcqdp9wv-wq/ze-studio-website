@@ -21,9 +21,9 @@ export const HomepageHero = () => (
     {/* Bottom gradient fade — ultra smooth */}
     <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-black via-black/90 via-50% to-transparent" />
 
-    {/* Text Content — on top of video, centered */}
-    <Container className="relative z-10 flex flex-col items-center justify-center h-full text-center -mt-20">
-      <Hero>
+    {/* Text Content — on top of video, centered on desktop */}
+    <Container className="relative z-10 flex flex-col items-start md:items-center justify-center h-full text-left md:text-center -mt-20">
+      <Hero className="flex flex-col items-start md:items-center">
         <Button
           className="translate-y-[-1rem] animate-fade-in opacity-0 !bg-white/5 !border-white/10 !text-white/50 hover:!text-white hover:!bg-white/10 transition-all"
           href="/monocarbon"

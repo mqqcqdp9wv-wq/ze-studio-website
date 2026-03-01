@@ -3,6 +3,7 @@
 import classNames from "classnames";
 import { Container } from "./container";
 import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 
 type FeaturesProps = {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export const Features = ({ children, color, colorDark }: FeaturesProps) => {
     <section
       ref={ref}
       className={classNames(
-        "after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(100%_50%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
+        "after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(100%_100%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
         inView &&
         "is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(2)]",
         !inView && "before:rotate-180 before:opacity-40"
@@ -71,7 +72,7 @@ const MainFeature = ({
         </Container>
       </div>
       <Container className="w-[78rem] max-w-[90%] text-center">
-        <div className="mx-auto my-16 text-2xl leading-tight text-white md:w-[80%] md:text-4xl">
+        <div className="mx-auto my-16 text-2xl leading-tight text-white md:w-[80%] md:text-4xl text-center">
           {text}
         </div>
         <hr className="mb-[7.2rem] h-[1px] border-none bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.1)_50%,transparent)]" />
@@ -88,20 +89,47 @@ type FeatureGridProps = {
   }[];
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const FeatureGrid = ({ features }: FeatureGridProps) => {
   return (
     <Container>
-      <div className="mb-16 grid w-full grid-cols-2 place-items-center gap-y-9 text-sm text-primary-text md:mb-[14rem] md:grid-cols-3 md:text-md">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="mb-16 grid w-full grid-cols-1 place-items-start gap-y-10 px-6 text-md text-primary-text md:mb-[14rem] md:grid-cols-3 md:place-items-center md:gap-y-9 md:px-0 md:text-md"
+      >
         {features.map(({ title, text, icon: Icon }) => (
-          <div
-            className="max-w-[25.6rem] [&_svg]:mb-[4px] [&_svg]:fill-white md:[&_svg]:mr-[6px] md:[&_svg]:mb-[2px] md:[&_svg]:inline"
+          <motion.div
+            variants={itemVariants}
+            className="w-full max-w-[25.6rem] text-left md:text-center [&_svg]:hidden md:[&_svg]:inline md:[&_svg]:mr-[6px] md:[&_svg]:mb-[2px] md:[&_svg]:fill-white"
             key={title}
           >
             <Icon />
-            <span className="block text-white md:inline">{title}</span> {text}
-          </div>
+            <span className="block text-white font-medium text-xl mb-1 md:inline md:text-[inherit] md:font-normal md:mb-0">{title}</span>{" "}
+            <span className="block text-white/50 leading-relaxed md:inline md:leading-normal md:text-primary-text">{text}</span>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </Container>
   );
 };

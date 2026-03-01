@@ -49,11 +49,12 @@ export const Clients = () => {
       </div>
 
       <div className="relative z-10 mb-16 text-center flex flex-col items-center gap-6">
-        <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter text-white leading-[1.05]">
+        <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter text-white leading-[1.05] px-4">
           Работаем с любыми <br /> марками автомобилей
         </h2>
-        <p className="text-white/40 text-xl md:text-2xl font-normal">
-          Более <span className="text-white font-medium"><AnimatedNumber value={20000} duration={1500} /></span> проектов выполнено за <span className="text-white font-medium"><AnimatedNumber value={18} duration={1500} /> лет</span>
+        <p className="text-white/40 text-xl md:text-2xl font-normal tabular-nums flex flex-wrap items-center justify-center gap-x-2">
+          <span>Более <span className="text-white font-medium inline-block w-[6.5ch] text-center"><AnimatedNumber value={20000} duration={1500} /></span> проектов</span>
+          <span>выполнено за <span className="text-white font-medium inline-block w-[2.5ch] text-center"><AnimatedNumber value={18} duration={1500} /></span> лет</span>
         </p>
       </div>
 
@@ -64,7 +65,7 @@ export const Clients = () => {
           WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
         }}
       >
-        <div className="flex items-center gap-16 py-8 animate-marquee">
+        <div className="flex items-center gap-16 py-8 animate-marquee md:animate-marquee-desktop">
           {[...carBrands, ...carBrands].map((brand, i) => (
             <span
               key={i}
