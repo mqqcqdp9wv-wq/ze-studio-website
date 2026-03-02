@@ -79,33 +79,88 @@ export const EnjoyIssueTracking = () => {
         ]}
       />
       <Container>
-        {/* MOBILE: 3D stacking cards */}
-        <MobileCardStack cards={[
-          {
-            title: "MonoCarbon",
-            description: "Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие.",
-            glowColor: "#1C3E6E", /* Глубокий синий */
-            numberPrefix: "01",
-            href: "/materials/monocarbon",
-            icon: CarbonIcon,
-          },
-          {
-            title: "Centum",
-            description: "Атермальная нанокерамика. 99% ИК-блокировки. ГОСТ. EV-совместимость.",
-            glowColor: "#0A4A5C", /* Глубокий циан/изумруд */
-            numberPrefix: "02",
-            href: "/materials/centum",
-            icon: CeramicIcon,
-          },
-          {
-            title: "Rescue",
-            description: "Бронеплёнка для лобового. Поглощение удара без искажения оптики.",
-            glowColor: "#2D1B5E", /* Глубокий индиго/фиолетовый */
-            numberPrefix: "03",
-            href: "/materials/rescue",
-            icon: ArmorShieldIcon,
-          },
-        ]} />
+        {/* MOBILE: vertical pattern cards */}
+        <div className="flex md:hidden flex-col gap-3 w-full pt-12">
+          {[
+            {
+              title: "MonoCarbon",
+              description: "Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие.",
+              glowColor: "#1C3E6E",
+              numberPrefix: "01",
+              href: "/materials/monocarbon",
+              animClass: "anim-monocarbon",
+              pattern: `repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px)`,
+            },
+            {
+              title: "Centum",
+              description: "Атермальная нанокерамика. 99% ИК-блокировки. ГОСТ. EV-совместимость.",
+              glowColor: "#0A4A5C",
+              numberPrefix: "02",
+              href: "/materials/centum",
+              animClass: "anim-centum",
+              pattern: `repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 14px), repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 40px)`,
+            },
+            {
+              title: "Rescue",
+              description: "Бронеплёнка для лобового. Поглощение удара без искажения оптики.",
+              glowColor: "#2D1B5E",
+              numberPrefix: "03",
+              href: "/materials/rescue",
+              animClass: "anim-rescue",
+              pattern: `repeating-linear-gradient(60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(-60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px)`,
+            },
+          ].map((card) => (
+            <a
+              key={card.title}
+              href={card.href}
+              className="relative w-full overflow-hidden cursor-pointer border border-white/[0.06] active:scale-[0.98] transition-transform duration-150"
+              style={{
+                background: `${card.pattern}, linear-gradient(160deg, ${card.glowColor}30 0%, #000 40%, #000 100%)`,
+                borderRadius: "2rem",
+                minHeight: "160px",
+              }}
+            >
+              {/* Glow orb */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-50"
+                style={{ background: `radial-gradient(ellipse 80% 60% at 50% 30%, ${card.glowColor}cc, transparent 70%)` }}
+              />
+              {/* Top edge highlight */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              {/* Animation layer */}
+              {card.animClass && (
+                <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden" style={{ borderRadius: "2rem" }}>
+                  <div className={card.animClass} />
+                </div>
+              )}
+              {/* Content */}
+              <div className="relative z-20 px-6 py-6">
+                <span
+                  className="font-mono text-[11px] font-semibold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full border inline-block mb-4"
+                  style={{
+                    color: card.glowColor,
+                    borderColor: `${card.glowColor}40`,
+                    background: `${card.glowColor}15`,
+                    filter: `brightness(2.5)`,
+                  }}
+                >
+                  {card.numberPrefix}
+                </span>
+                <h3 className="font-mono text-[20px] font-bold uppercase tracking-tight text-white mb-1">
+                  {card.title}
+                </h3>
+                <p className="font-sans text-[13px] leading-relaxed text-white/55 max-w-[280px]">
+                  {card.description}
+                </p>
+              </div>
+              {/* Bottom edge glow line */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-[2px] z-30"
+                style={{ background: `linear-gradient(90deg, transparent, ${card.glowColor}, transparent)`, filter: `brightness(2)` }}
+              />
+            </a>
+          ))}
+        </div>
 
         {/* DESKTOP: horizontal accordion (Cruip-style) */}
         <div className="hidden md:flex group gap-3 relative w-full pt-20">
@@ -169,7 +224,7 @@ export const EnjoyIssueTracking = () => {
               {/* Top edge highlight */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-              {/* Material animation layer (Centum only) */}
+              {/* Material animation layer */}
               {card.animClass && (
                 <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden" style={{ borderRadius: "2.8rem" }}>
                   <div className={card.animClass} />
