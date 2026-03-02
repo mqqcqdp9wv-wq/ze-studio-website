@@ -45,33 +45,33 @@ export const BuildMomentum = () => {
         features={[
           {
             icon: WorkflowsIcon,
-            title: "No-Touch.",
-            text: "Дверные карты на месте. Сохранность клипс и тишины.",
+            title: "No-Touch Protocol",
+            text: "Инсталляция без разбора обшивок. Сохранность заводских клипс.",
           },
           {
             icon: ArmorShieldIcon,
-            title: "Защита электроники.",
-            text: "Микрофибровые жгуты.",
+            title: "Electro-Shield",
+            text: "Защита электроники. Микрофибровые барьеры во всех узлах.",
           },
           {
             icon: StabilityIcon,
-            title: "Доступность 24/7.",
-            text: "Запись на любой день недели.",
+            title: "Schedule Sync",
+            text: "Консистентная запись на любой день. Доступность 24/7.",
           },
           {
             icon: DiscussionIcon,
-            title: "Опыт.",
-            text: "С 2007 года. Максимальный рейтинг 5.0.",
+            title: "Heritage",
+            text: "С 2007 года. Максимальный рейтинг доверия 5.0.",
           },
           {
             icon: AutomatedBacklogIcon,
-            title: "Zero-Strip протокол.",
-            text: "Без извлечения стекол.",
+            title: "Zero-Strip Standard",
+            text: "Монтаж без извлечения стекол. Герметичность по заводу.",
           },
           {
             icon: IssuesIcon,
-            title: "Скорость.",
-            text: "Тонировка от 30 минут без потери качества.",
+            title: "Velocity",
+            text: "Высокоточная инсталляция от 30 минут без ущерба качеству.",
           },
         ]}
       />

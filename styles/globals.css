@@ -198,10 +198,12 @@
       opacity: 1;
       transform: translate(0, 0) rotate(0deg) scale(0);
     }
+
     25% {
       opacity: 1;
       transform: translate(calc(var(--tx) * 0.4), calc(var(--ty) * 0.4)) rotate(calc(var(--rot) * 0.4)) scale(1);
     }
+
     100% {
       opacity: 0;
       transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.4);
@@ -291,36 +293,28 @@
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
-/* Shimmer — луч через overlay, текст не двигается */
-@keyframes shimmer-beam {
+/* Shimmer — буквы подсвечиваются как от фонарика */
+@keyframes shimmer-glow {
   0% {
-    transform: translateX(-150%);
+    background-position: 200% 0;
   }
 
   100% {
-    transform: translateX(400%);
+    background-position: -100% 0;
   }
 }
 
 .text-shimmer-desc {
-  position: relative;
-  overflow: hidden;
-  color: rgba(255, 255, 255, 0.42);
-}
-
-.text-shimmer-desc::after {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: 0;
-  width: 35%;
-  height: 140%;
   background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.5),
-      transparent);
-  animation: shimmer-beam 10s ease-in-out infinite;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  filter: blur(6px);
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.42) 40%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 255, 255, 0.42) 60%,
+      rgba(255, 255, 255, 0.42) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-glow 5s ease-in-out infinite alternate;
+  animation-delay: var(--shimmer-delay, 0s);
 }

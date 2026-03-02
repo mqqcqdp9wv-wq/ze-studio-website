@@ -19,7 +19,7 @@ export const Features = ({ children, color, colorDark }: FeaturesProps) => {
     <section
       ref={ref}
       className={classNames(
-        "after:bg-[radial-gradient(ellipse_80%_30%_at_50%_15%,rgba(var(--feature-color),0.12),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(ellipse_at_center,_black_10%,_transparent_70%)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
+        "[mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)] after:bg-[radial-gradient(ellipse_100%_60%_at_50%_25%,rgba(var(--feature-color),0.10),transparent)] relative flex flex-col items-center overflow-x-clip before:pointer-events-none before:absolute before:h-[20rem] md:before:h-[40rem] before:w-full before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat before:transition-[transform,opacity] before:duration-1000 before:ease-in before:[mask:radial-gradient(ellipse_at_center,_black_10%,_transparent_70%)] before:[background-size:50%_100%,50%_100%] before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0",
         inView &&
         "is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(2)]",
         !inView && "before:rotate-180 before:opacity-40"
@@ -98,13 +98,12 @@ const itemVariants = {
 const FeatureGrid = ({ features }: FeatureGridProps) => {
   return (
     <Container>
-      {/* MOBILE: numbered 1-col list with TextScramble + stagger */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-40px" }}
-        transition={{ staggerChildren: 0.18 }}
-        className="flex flex-col gap-7 mb-16 md:hidden"
+        transition={{ staggerChildren: 0.1 }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-12 md:gap-y-16 mb-16 md:mb-[14.8rem]"
       >
         {features.map(({ title, text }, i) => (
           <motion.div
@@ -115,9 +114,9 @@ const FeatureGrid = ({ features }: FeatureGridProps) => {
             <span className="shrink-0 mt-[4px] text-[10px] font-mono select-none w-5 text-right text-white/20 uppercase tracking-widest leading-none">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <div>
+            <div className="flex-1">
               <p
-                className="relative flex items-center gap-1 font-semibold text-[17px] mb-1 leading-snug tracking-tighter font-mono uppercase"
+                className="relative flex items-center gap-1 font-semibold text-[18px] mb-1.5 leading-snug tracking-tighter font-mono uppercase"
                 style={{
                   background: `linear-gradient(to bottom, #fff 20%, rgba(255,255,255,0.45))`,
                   WebkitBackgroundClip: 'text',
@@ -125,30 +124,19 @@ const FeatureGrid = ({ features }: FeatureGridProps) => {
                   backgroundClip: 'text',
                 }}
               >
-                <TextScramble text={title.replace(/\.$/, "")} delay={i * 180} />
+                <TextScramble text={title.replace(/\.$/, "")} delay={i * 120} />
                 <span style={{ color: `rgb(var(--feature-color))` }}>.</span>
               </p>
               <p
-                className="text-shimmer-desc text-sm leading-relaxed tracking-wide"
-                style={{ animationDelay: `${i * 2}s` }}
-              >{text}</p>
+                className="text-shimmer-desc text-sm leading-relaxed tracking-wide text-white/45"
+                style={{ '--shimmer-delay': `${i * 1.8}s` } as React.CSSProperties}
+              >
+                {text}
+              </p>
             </div>
           </motion.div>
         ))}
       </motion.div>
-
-      {/* DESKTOP: original 3-col grid with icons */}
-      <div className="hidden mb-16 md:grid w-full grid-cols-3 place-items-center gap-y-9 text-md text-primary-text md:mb-[14rem]">
-        {features.map(({ title, text, icon: Icon }) => (
-          <div
-            className="max-w-[25.6rem] [&_svg]:mb-[4px] [&_svg]:fill-white md:[&_svg]:mr-[6px] md:[&_svg]:mb-[2px] md:[&_svg]:inline"
-            key={title}
-          >
-            <Icon />
-            <span className="block text-white md:inline">{title}</span> {text}
-          </div>
-        ))}
-      </div>
     </Container>
   );
 };
