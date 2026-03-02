@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
-const basePath = isProd ? '/ze-studio-website' : '';
+// GitHub Pages needs /ze-studio-website prefix; Vercel deploys to root
+const isGitHubPages = process.env.GITHUB_PAGES === 'true';
+const basePath = isGitHubPages ? '/ze-studio-website' : '';
 
 const nextConfig = {
   output: 'export',
