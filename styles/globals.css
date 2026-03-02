@@ -325,18 +325,18 @@
 
 /* MonoCarbon — diagonal carbon-fiber cross-hatch pulse */
 @keyframes monocarbon-pulse {
-  0%   { background-position: 0 0;    opacity: 0.35; }
-  50%  { opacity: 0.75; }
-  100% { background-position: 14px 14px; opacity: 0.35; }
+  0%   { opacity: 0.25; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.25; }
 }
 
 .anim-monocarbon {
   position: absolute;
   inset: 0;
   background:
-    repeating-linear-gradient(45deg,  rgba(80, 140, 255, 0.07) 0px, rgba(80, 140, 255, 0.07) 1px, transparent 1px, transparent 10px),
-    repeating-linear-gradient(-45deg, rgba(80, 140, 255, 0.07) 0px, rgba(80, 140, 255, 0.07) 1px, transparent 1px, transparent 10px);
-  animation: monocarbon-pulse 5s ease-in-out infinite;
+    repeating-linear-gradient(45deg,  rgba(80, 140, 255, 0.12) 0px, rgba(80, 140, 255, 0.12) 1.5px, transparent 1.5px, transparent 10px),
+    repeating-linear-gradient(-45deg, rgba(80, 140, 255, 0.12) 0px, rgba(80, 140, 255, 0.12) 1.5px, transparent 1.5px, transparent 10px);
+  animation: monocarbon-pulse 4s ease-in-out infinite;
 }
 
 /* Centum — animated IR heat-wave horizontal lines */
@@ -361,18 +361,18 @@
 
 /* Rescue — diamond armor-grid pulse */
 @keyframes rescue-pulse {
-  0%   { background-position: 0 0;       opacity: 0.35; }
-  50%  { opacity: 0.75; }
-  100% { background-position: 12px 12px; opacity: 0.35; }
+  0%   { opacity: 0.25; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.25; }
 }
 
 .anim-rescue {
   position: absolute;
   inset: 0;
   background:
-    repeating-linear-gradient(60deg,  rgba(130, 80, 255, 0.07) 0px, rgba(130, 80, 255, 0.07) 1px, transparent 1px, transparent 12px),
-    repeating-linear-gradient(-60deg, rgba(130, 80, 255, 0.07) 0px, rgba(130, 80, 255, 0.07) 1px, transparent 1px, transparent 12px);
-  animation: rescue-pulse 5s ease-in-out infinite;
+    repeating-linear-gradient(60deg,  rgba(130, 80, 255, 0.12) 0px, rgba(130, 80, 255, 0.12) 1.5px, transparent 1.5px, transparent 12px),
+    repeating-linear-gradient(-60deg, rgba(130, 80, 255, 0.12) 0px, rgba(130, 80, 255, 0.12) 1.5px, transparent 1.5px, transparent 12px);
+  animation: rescue-pulse 4s ease-in-out infinite;
   animation-delay: 1.8s;
 }
 
