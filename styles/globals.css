@@ -323,6 +323,22 @@
    Material card animations
    ───────────────────────────────────────────────────────────── */
 
+/* MonoCarbon — diagonal carbon-fiber cross-hatch pulse */
+@keyframes monocarbon-pulse {
+  0%   { background-position: 0 0;    opacity: 0.35; }
+  50%  { opacity: 0.75; }
+  100% { background-position: 14px 14px; opacity: 0.35; }
+}
+
+.anim-monocarbon {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(45deg,  rgba(80, 140, 255, 0.07) 0px, rgba(80, 140, 255, 0.07) 1px, transparent 1px, transparent 10px),
+    repeating-linear-gradient(-45deg, rgba(80, 140, 255, 0.07) 0px, rgba(80, 140, 255, 0.07) 1px, transparent 1px, transparent 10px);
+  animation: monocarbon-pulse 5s ease-in-out infinite;
+}
+
 /* Centum — animated IR heat-wave horizontal lines */
 @keyframes centum-wave {
   0%   { background-position: 0 0;     opacity: 0.45; }
@@ -341,5 +357,22 @@
     transparent 16px
   );
   animation: centum-wave 3.5s ease-in-out infinite;
+}
+
+/* Rescue — diamond armor-grid pulse */
+@keyframes rescue-pulse {
+  0%   { background-position: 0 0;       opacity: 0.35; }
+  50%  { opacity: 0.75; }
+  100% { background-position: 12px 12px; opacity: 0.35; }
+}
+
+.anim-rescue {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(60deg,  rgba(130, 80, 255, 0.07) 0px, rgba(130, 80, 255, 0.07) 1px, transparent 1px, transparent 12px),
+    repeating-linear-gradient(-60deg, rgba(130, 80, 255, 0.07) 0px, rgba(130, 80, 255, 0.07) 1px, transparent 1px, transparent 12px);
+  animation: rescue-pulse 5s ease-in-out infinite;
+  animation-delay: 1.8s;
 }
 

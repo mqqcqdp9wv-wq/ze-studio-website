@@ -116,6 +116,7 @@ export const EnjoyIssueTracking = () => {
               glowColor: "#1C3E6E",
               numberPrefix: "01",
               href: "/materials/monocarbon",
+              animClass: "anim-monocarbon",
               // Carbon fiber: diagonal cross-hatch
               pattern: `repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px)`,
             },
@@ -135,6 +136,7 @@ export const EnjoyIssueTracking = () => {
               glowColor: "#2D1B5E",
               numberPrefix: "03",
               href: "/materials/rescue",
+              animClass: "anim-rescue",
               // Armor: diamond / hexagonal grid
               pattern: `repeating-linear-gradient(60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(-60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px)`,
             },
