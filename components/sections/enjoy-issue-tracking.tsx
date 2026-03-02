@@ -36,8 +36,9 @@ export const EnjoyIssueTracking = () => {
         text={
           <span className="block text-white/50 opacity-0 translate-y-4 [transition:opacity_1s_ease_0.2s,transform_1s_cubic-bezier(0.16,1,0.3,1)_0.2s] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-y-0">
             Одна линейка. Одна{" "}
+            <span className="md:hidden text-white font-medium pl-1">защита</span>
             <FlipWords
-              className="text-white font-medium"
+              className="hidden md:inline-block text-white font-medium"
               words={["защита", "прохлада", "ясность", "логика"]}
             />
           </span>
@@ -106,92 +107,114 @@ export const EnjoyIssueTracking = () => {
           },
         ]} />
 
-        {/* DESKTOP: 3-column refined glass grid */}
-        <div className="hidden md:grid grid-cols-3 gap-8 relative w-full pt-20 overflow-visible">
-          {/* Subtle background diffusion */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-full w-full opacity-[0.03] blur-[150px]"
-            style={{ background: `radial-gradient(circle at center, #1C3E6E, transparent 70%)` }}
-          />
-
+        {/* DESKTOP: horizontal accordion (Cruip-style) */}
+        <div className="hidden md:flex group gap-3 relative w-full pt-20">
           {[
             {
               title: "MonoCarbon",
               description: "Nano-carbon пигмент. Нулевое выцветание. Стабильный угольный тон на десятилетие.",
               glowColor: "#1C3E6E",
               numberPrefix: "01",
+              href: "/materials/monocarbon",
+              // Carbon fiber: diagonal cross-hatch
+              pattern: `repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px)`,
             },
             {
               title: "Centum",
               description: "Атермальная нанокерамика. 99% ИК-блокировки. ГОСТ. EV-совместимость.",
               glowColor: "#0A4A5C",
               numberPrefix: "02",
+              href: "/materials/centum",
+              animClass: "anim-centum",
+              // Ceramic / signal waves: horizontal lines
+              pattern: `repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 14px), repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 40px)`,
             },
             {
               title: "Rescue",
               description: "Бронеплёнка для лобового. Поглощение удара без искажения оптики.",
               glowColor: "#2D1B5E",
               numberPrefix: "03",
-            }
-          ].map((card, i) => (
-            <div
+              href: "/materials/rescue",
+              // Armor: diamond / hexagonal grid
+              pattern: `repeating-linear-gradient(60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(-60deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px)`,
+            },
+          ].map((card) => (
+            <a
               key={card.title}
-              className="group relative overflow-hidden backdrop-blur-2xl w-full transition-all duration-700 border border-white/[0.08] hover:-translate-y-3 cursor-pointer"
+              href={card.href}
+              className="group/article relative w-full overflow-hidden cursor-pointer
+                border border-white/[0.06]
+                md:group-hover:[&:not(:hover)]:w-[20%]
+                transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.15)]
+                after:opacity-0 md:group-hover:[&:not(:hover)]:after:opacity-100
+                after:absolute after:inset-0 after:bg-black/55 after:backdrop-blur-[2px] after:transition-all after:duration-300 after:z-20
+                before:absolute before:inset-x-0 before:bottom-0 before:h-2/3 before:z-10
+                before:bg-gradient-to-t before:from-black/80 before:via-black/30 before:to-transparent
+                before:transition-opacity before:duration-300
+                md:before:opacity-0 md:hover:before:opacity-100"
               style={{
-                background: `linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 50%, ${card.glowColor}15 100%)`,
+                background: `${card.pattern}, linear-gradient(160deg, ${card.glowColor}30 0%, #000 40%, #000 100%)`,
                 borderRadius: "2.8rem",
-                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px 0 ${card.glowColor}05`,
+                minHeight: "420px",
               }}
             >
-              {/* Dynamic Surface Glow */}
+              {/* Central glow orb */}
               <div
-                className="pointer-events-none absolute bottom-0 left-0 right-0 h-3/4 opacity-20 transition-opacity duration-700 group-hover:opacity-50"
-                style={{
-                  background: `radial-gradient(ellipse 80% 60% at 50% 120%, ${card.glowColor}, transparent)`,
-                }}
+                className="pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-500 group-hover/article:opacity-70"
+                style={{ background: `radial-gradient(ellipse 70% 55% at 50% 42%, ${card.glowColor}cc, transparent 70%)` }}
               />
 
-              {/* Glass Highlights */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/[0.04] to-transparent" />
+              {/* Top edge highlight */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-              <div className="relative z-10 flex flex-col items-center gap-7 pt-14 pb-12 px-10 text-center">
-                {/* Number Circle (Sole primary identifier) */}
-                <div
-                  className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-white/5 transition-all duration-700 group-hover:scale-110 group-hover:border-white/10"
+              {/* Material animation layer (Centum only) */}
+              {card.animClass && (
+                <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden" style={{ borderRadius: "2.8rem" }}>
+                  <div className={card.animClass} />
+                </div>
+              )}
+
+              {/* Number badge — top left */}
+              <div className="absolute top-7 left-7 z-30">
+                <span
+                  className="font-mono text-[11px] font-semibold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full border"
                   style={{
-                    background: `${card.glowColor}20`,
+                    color: `${card.glowColor}`,
                     borderColor: `${card.glowColor}40`,
-                    boxShadow: `0 0 25px ${card.glowColor}15`
+                    background: `${card.glowColor}15`,
+                    filter: `brightness(2.5)`,
                   }}
                 >
-                  <span
-                    className="font-mono text-[18px] font-bold leading-none"
-                    style={{ color: card.glowColor }}
-                  >
-                    {card.numberPrefix}
-                  </span>
-                </div>
-
-                {/* Content Block - Clean Hierarchy */}
-                <div className="flex flex-col items-center gap-3">
-                  <h3 className="font-mono text-[20px] font-bold uppercase tracking-tight text-white/90">
-                    {card.title}
-                  </h3>
-                  <p className="font-sans text-[15px] leading-relaxed text-white/45 font-normal max-w-[280px]">
-                    {card.description}
-                  </p>
-                </div>
+                  {card.numberPrefix}
+                </span>
               </div>
 
-              {/* Technical Bottom Edge */}
+              {/* Content — title always visible; description reveals on hover */}
+              <div className="absolute inset-x-0 bottom-0 z-20 px-8 py-8">
+                {/* Description — grid-row reveal (no layout jump) */}
+                <div className="grid grid-rows-[0fr] group-hover/article:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.5,.85,.25,1.15)]">
+                  <div className="overflow-hidden">
+                    <p className="font-sans text-[13px] leading-relaxed text-white/55 max-w-[280px] pb-2
+                      opacity-0 translate-y-1
+                      group-hover/article:opacity-100 group-hover/article:translate-y-0
+                      transition-[opacity,transform] duration-300 ease-out
+                      group-hover/article:[transition-delay:100ms]">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+                {/* Title — always visible */}
+                <h3 className="font-mono text-[22px] font-bold uppercase tracking-tight text-white">
+                  {card.title}
+                </h3>
+              </div>
+
+              {/* Bottom edge glow line */}
               <div
-                className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 transition-opacity duration-700 group-hover:opacity-40"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${card.glowColor}, transparent)`,
-                }}
+                className="absolute bottom-0 left-0 right-0 h-[2px] z-30 opacity-0 transition-opacity duration-500 group-hover/article:opacity-60"
+                style={{ background: `linear-gradient(90deg, transparent, ${card.glowColor}, transparent)`, filter: `brightness(2)` }}
               />
-            </div>
+            </a>
           ))}
         </div>
       </Container>

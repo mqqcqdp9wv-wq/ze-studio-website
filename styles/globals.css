@@ -306,15 +306,40 @@
 
 .text-shimmer-desc {
   background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0.42) 0%,
-      rgba(255, 255, 255, 0.42) 40%,
-      rgba(255, 255, 255, 0.95) 50%,
-      rgba(255, 255, 255, 0.42) 60%,
-      rgba(255, 255, 255, 0.42) 100%);
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.35) 30%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 0.35) 70%,
+      rgba(255, 255, 255, 0.35) 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer-glow 5s ease-in-out infinite alternate;
+  animation: shimmer-glow 10s ease-in-out infinite alternate;
   animation-delay: var(--shimmer-delay, 0s);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Material card animations
+   ───────────────────────────────────────────────────────────── */
+
+/* Centum — animated IR heat-wave horizontal lines */
+@keyframes centum-wave {
+  0%   { background-position: 0 0;     opacity: 0.45; }
+  50%  { opacity: 0.85; }
+  100% { background-position: 0 -112px; opacity: 0.45; }
+}
+
+.anim-centum {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(14, 210, 230, 0.07) 0px,
+    rgba(14, 210, 230, 0.07) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+  animation: centum-wave 3.5s ease-in-out infinite;
+}
+
