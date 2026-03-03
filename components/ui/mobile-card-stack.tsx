@@ -17,8 +17,8 @@ type CardData = {
 // index 0 = back, 2 = front
 const STACK = [
     { z: -70, y: 22, opacity: 0.55, blur: 4 },
-    { z: 10,  y: -8, opacity: 0.85, blur: 1.5 },
-    { z: 95,  y: -36, opacity: 1,   blur: 0 },
+    { z: 10, y: -8, opacity: 0.85, blur: 1.5 },
+    { z: 95, y: -36, opacity: 1, blur: 0 },
 ];
 
 export const MobileCardStack = ({ cards }: { cards: CardData[] }) => {
@@ -96,7 +96,15 @@ export const MobileCardStack = ({ cards }: { cards: CardData[] }) => {
                                 </div>
                                 {/* Text */}
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="font-mono text-[16px] font-bold uppercase tracking-tight text-white mb-1">
+                                    <h3
+                                        className="font-mono text-[16px] font-bold uppercase tracking-tight mb-1"
+                                        style={{
+                                            background: 'linear-gradient(to bottom, #FFFFFF 0%, #E2E8F0 100%)',
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            backgroundClip: 'text',
+                                        }}
+                                    >
                                         {card.title}
                                     </h3>
                                     <p className="line-clamp-2 font-sans text-[13px] leading-relaxed text-white/50">
