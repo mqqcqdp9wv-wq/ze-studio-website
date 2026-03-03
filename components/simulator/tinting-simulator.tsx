@@ -38,7 +38,7 @@ export default function TintingSimulator() {
                 frameloop="always"
                 shadows
                 dpr={[1, 2]}
-                camera={{ position: [5, 2.5, -5], fov: 42 }}
+                camera={{ position: [6, 2.5, 6], fov: 38 }}
                 style={{ width: "100%", height: "100%" }}
             >
                 <Suspense fallback={null}>

@@ -11,10 +11,12 @@ import {
     type MaterialKey,
 } from "./glass-material";
 
-// Имена mesh-объектов в модели (поправить после загрузки реальной модели)
-const GLASS_KEYWORDS  = ["glass", "window", "windshield", "стекло"];
-const DOOR_KEYWORDS   = ["door_front_left", "door_fl", "door.fl"];
-const BODY_KEYWORDS   = ["body", "paint", "кузов"];
+// Имена mesh-объектов Mercedes S-Class (из GLB структуры)
+// MM_Glass_WindowTintFront — лобовое + боковые окна
+// MM_Glass_Mphong2 — остальные стёкла кузова
+const GLASS_KEYWORDS  = ["mm_glass_window", "mm_glass_mphong2"];
+const DOOR_KEYWORDS   = ["door"]; // в этой модели дверей нет отдельно
+const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
 
 interface VehicleSceneProps {
     materialKey: MaterialKey;
