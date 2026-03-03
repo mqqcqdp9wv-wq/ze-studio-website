@@ -23,7 +23,8 @@ const TintingSimulator = dynamic(
 
 export default function SimulatorPage() {
     return (
-        <div className="relative h-screen w-screen overflow-hidden bg-[#0F0F0F]">
+        // fixed inset-0 — перекрывает хедер/футер из root layout
+        <div className="fixed inset-0 z-50 bg-[#0F0F0F] overflow-hidden">
             {/* Back link */}
             <Link
                 href="/"

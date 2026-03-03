@@ -32,13 +32,14 @@ export default function TintingSimulator() {
     };
 
     return (
-        <div className="relative h-screen w-screen overflow-hidden bg-[#0F0F0F]">
-            {/* ─── Canvas ─── */}
+        <div className="relative w-full h-full bg-[#0F0F0F]">
+            {/* ─── Canvas — занимает весь родительский контейнер ─── */}
             <Canvas
-                frameloop="demand"
+                frameloop="always"
                 shadows
                 dpr={[1, 2]}
                 camera={{ position: [5, 2.5, -5], fov: 42 }}
+                style={{ width: "100%", height: "100%" }}
             >
                 <Suspense fallback={null}>
                     <VehicleScene
