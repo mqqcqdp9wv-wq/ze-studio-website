@@ -254,8 +254,9 @@ function GLBCar({
 
     return (
         <group>
-            <primitive object={scene} scale={1.2} position={[0, -0.5, 0]} />
-            <ContactShadows position={[0, -0.51, 0]} opacity={0.8} scale={12} blur={2.5} far={4} />
+            {/* scale — подобрать под фактический размер модели */}
+            <primitive object={scene} scale={0.5} position={[0, 0, 0]} />
+            <ContactShadows position={[0, -0.01, 0]} opacity={0.8} scale={12} blur={2.5} far={4} />
         </group>
     );
 }

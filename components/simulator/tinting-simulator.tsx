@@ -38,7 +38,7 @@ export default function TintingSimulator() {
                 frameloop="always"
                 shadows
                 dpr={[1, 2]}
-                camera={{ position: [6, 2.5, 6], fov: 38 }}
+                camera={{ position: [3, 1.2, 3], fov: 45 }}
                 style={{ width: "100%", height: "100%" }}
             >
                 <Suspense fallback={null}>
@@ -53,8 +53,8 @@ export default function TintingSimulator() {
 
                 <OrbitControls
                     enablePan={false}
-                    minDistance={3.5}
-                    maxDistance={9}
+                    minDistance={0.8}
+                    maxDistance={12}
                     minPolarAngle={Math.PI / 6}
                     maxPolarAngle={Math.PI / 2.05}
                     makeDefault
