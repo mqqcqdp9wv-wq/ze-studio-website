@@ -12,9 +12,9 @@ import {
 } from "./glass-material";
 
 // Имена mesh-объектов Mercedes S-Class (из GLB структуры)
-// MM_Glass_WindowTintFront — лобовое + боковые окна (тонируемые)
-// MM_Glass_Mphong2 УБРАН — он покрывает фары, тонировать нельзя
-const GLASS_KEYWORDS  = ["mm_glass_windowtint"]; // точно бьёт только по WindowTintFront
+// MM_Glass_WindowTintFront — лобовое + передние боковые
+// MM_Glass_Mphong2        — боковые и заднее стёкла
+const GLASS_KEYWORDS  = ["mm_glass_window", "mm_glass_mphong2"];
 const DOOR_KEYWORDS   = ["door"];
 const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
 
@@ -236,6 +236,19 @@ function GLBCar({
             // Кузов
             if (BODY_KEYWORDS.some((k) => name.includes(k))) {
                 (child.material as THREE.MeshStandardMaterial).color?.set("#1a1a1a");
+            }
+
+            // Фары — восстанавливаем светлый прозрачный материал (не тонируем)
+            // mm_lglass = лампы фар (ближний/дальний свет, задние фонари)
+            if (name.includes("mm_lglass")) {
+                const mat = child.material as THREE.MeshStandardMaterial;
+                if (mat) {
+                    mat.color?.set("#ffffff");
+                    mat.transparent = true;
+                    mat.opacity     = 0.55;
+                    mat.roughness   = 0.0;
+                    mat.metalness   = 0.0;
+                }
             }
         });
     }, [scene, level, clipTint]);
