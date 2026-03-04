@@ -30,10 +30,10 @@ export const TINT_CONFIG: Record<string, TintMaterial> = {
         description: "Наноуглеродная матрица. Абсолютный матовый чёрный. Гарантия стабильности цвета менее 1% выцветания за 10 лет. Нулевое сопротивление для сигналов 5G и ADAS.",
         accentColor: "#4A8FE7",
         levels: [
-            { vlt: 5,  label: "5%",  color: "#050505", transmission: 0.94, roughness: 0.04, gost: false },
-            { vlt: 15, label: "15%", color: "#111111", transmission: 0.74, roughness: 0.04, gost: false },
-            { vlt: 35, label: "35%", color: "#181818", transmission: 0.62, roughness: 0.04, gost: false },
-            { vlt: 50, label: "50%", color: "#222222", transmission: 0.50, roughness: 0.04, gost: true  },
+            { vlt: 5,  label: "5%",  color: "#020202", transmission: 0.96, roughness: 0.05, gost: false },
+            { vlt: 15, label: "15%", color: "#0e0e0e", transmission: 0.78, roughness: 0.05, gost: false },
+            { vlt: 35, label: "35%", color: "#1c1c1c", transmission: 0.56, roughness: 0.04, gost: false },
+            { vlt: 50, label: "50%", color: "#2e2e2e", transmission: 0.38, roughness: 0.04, gost: true  },
         ],
     },
     centum: {
@@ -82,9 +82,10 @@ export function createGlassMaterial(params: {
         transmission: 0,
         opacity: params.transmission,
         transparent: true,
-        envMapIntensity: 2.0,
-        clearcoat: 0.8,
-        clearcoatRoughness: 0.05,
+        envMapIntensity: 1.5,
+        // Clearcoat снижен: иначе одинаковый блик на всех уровнях маскирует разницу opacity
+        clearcoat: 0.25,
+        clearcoatRoughness: 0.1,
         side: THREE.DoubleSide,
         depthWrite: false,
         clippingPlanes: params.clippingPlanes ?? [],

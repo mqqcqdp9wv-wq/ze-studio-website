@@ -218,7 +218,7 @@ function GLBCar({
                 doorRef.current = child;
             }
 
-            // Стёкла — применяем оба материала через клонирование меша
+            // Стёкла
             if (GLASS_KEYWORDS.some((k) => name.includes(k))) {
                 child.material = createGlassMaterial({
                     color:        level.color,
@@ -228,6 +228,9 @@ function GLBCar({
                 });
                 child.castShadow    = false;
                 child.receiveShadow = false;
+                // Фикс пропадания при орбите: рендерим стёкла после кузова
+                child.renderOrder   = 2;
+                child.frustumCulled = false;
             }
 
             // Кузов
