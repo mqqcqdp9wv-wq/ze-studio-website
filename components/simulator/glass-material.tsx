@@ -33,7 +33,7 @@ export const TINT_CONFIG: Record<string, TintMaterial> = {
             { vlt: 5,  label: "5%",  color: "#020202", transmission: 0.96, roughness: 0.05, gost: false },
             { vlt: 15, label: "15%", color: "#0e0e0e", transmission: 0.78, roughness: 0.05, gost: false },
             { vlt: 35, label: "35%", color: "#1c1c1c", transmission: 0.56, roughness: 0.04, gost: false },
-            { vlt: 50, label: "50%", color: "#2e2e2e", transmission: 0.38, roughness: 0.04, gost: true  },
+            { vlt: 50, label: "50%", color: "#282828", transmission: 0.46, roughness: 0.04, gost: true  },
         ],
     },
     centum: {
