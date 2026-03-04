@@ -12,10 +12,10 @@ import {
 } from "./glass-material";
 
 // Имена mesh-объектов Mercedes S-Class (из GLB структуры)
-// MM_Glass_WindowTintFront — лобовое + боковые окна
-// MM_Glass_Mphong2 — остальные стёкла кузова
-const GLASS_KEYWORDS  = ["mm_glass_window", "mm_glass_mphong2"];
-const DOOR_KEYWORDS   = ["door"]; // в этой модели дверей нет отдельно
+// MM_Glass_WindowTintFront — лобовое + боковые окна (тонируемые)
+// MM_Glass_Mphong2 УБРАН — он покрывает фары, тонировать нельзя
+const GLASS_KEYWORDS  = ["mm_glass_windowtint"]; // точно бьёт только по WindowTintFront
+const DOOR_KEYWORDS   = ["door"];
 const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
 
 interface VehicleSceneProps {
