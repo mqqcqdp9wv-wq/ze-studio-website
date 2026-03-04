@@ -59,10 +59,10 @@ export const TINT_CONFIG: Record<string, TintMaterial> = {
 export type MaterialKey = "monocarbon" | "centum" | "rescue";
 
 // Базовое заводское стекло (левая сторона слайдера)
-// transmission = 0.10 → почти прозрачное (opacity 10%)
+// opacity 0.22 → видно как стекло (голубой блик) но насквозь прозрачное
 export const FACTORY_GLASS_PARAMS = {
-    color: "#d0eef5",
-    transmission: 0.10,
+    color: "#c8e8f4",
+    transmission: 0.22,
     roughness: 0.0,
 };
 
