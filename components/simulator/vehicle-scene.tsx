@@ -11,11 +11,9 @@ import {
     type MaterialKey,
 } from "./glass-material";
 
-// Имена mesh-объектов Mercedes S-Class (из GLB структуры)
-// "mm_glass_window"     — слишком широко: захватывает WindowSurround (молдинг!)
-// "mm_glass_windowtint" — точно: только MM_Glass_WindowTintFront (лобовое + передние)
-// "mm_glass_mphong2"    — точно: только MM_Glass_Mphong2SG1_0 (боковые + заднее)
-const GLASS_KEYWORDS  = ["mm_glass_windowtint", "mm_glass_mphong2"];
+// MM_Glass_Mphong2SG1_0 содержит В ОДНОМ МЕШЕ и боковые окна и крышки передних фар
+// — разделить без правки GLB невозможно, поэтому тонируем только WindowTintFront
+const GLASS_KEYWORDS  = ["mm_glass_windowtint"];
 const DOOR_KEYWORDS   = ["door"];
 const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
 
