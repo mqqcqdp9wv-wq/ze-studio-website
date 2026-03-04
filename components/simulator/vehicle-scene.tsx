@@ -11,9 +11,9 @@ import {
     type MaterialKey,
 } from "./glass-material";
 
-// MM_Glass_Mphong2SG1_0 содержит В ОДНОМ МЕШЕ и боковые окна и крышки передних фар
-// — разделить без правки GLB невозможно, поэтому тонируем только WindowTintFront
-const GLASS_KEYWORDS  = ["mm_glass_windowtint"];
+// WindowTintFront — лобовое + крыша
+// Mphong2 — боковые, заднее стёкла (+ крышки фар в том же меше — ограничение модели)
+const GLASS_KEYWORDS  = ["mm_glass_windowtint", "mm_glass_mphong2"];
 const DOOR_KEYWORDS   = ["door"];
 const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
 
