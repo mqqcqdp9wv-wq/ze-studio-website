@@ -48,7 +48,15 @@ export const EngineeringCulture = () => {
         <div className="relative py-32 text-white">
             <Container>
                 <div className="mb-16 text-center">
-                    <h2 className="mb-4 text-4xl font-medium tracking-tight md:text-7xl">
+                    <h2
+                        className="mb-4 text-4xl font-medium tracking-tight md:text-7xl"
+                        style={{
+                            background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                        }}
+                    >
                         Инженерный подход
                         <br className="hidden md:inline-block" /> к тонировке
                     </h2>
@@ -83,6 +91,12 @@ export const EngineeringCulture = () => {
                                     <motion.h3
                                         layout
                                         className="mb-2 text-2xl font-medium md:text-3xl"
+                                        style={{
+                                            background: 'linear-gradient(to bottom, #FFFFFF 0%, #E2E8F0 100%)',
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            backgroundClip: 'text',
+                                        }}
                                     >
                                         {card.title}
                                     </motion.h3>

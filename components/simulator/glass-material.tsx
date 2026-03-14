@@ -9,6 +9,17 @@ export interface TintLevel {
     transmission: number;
     roughness: number;
     gost: boolean;
+    title: string;
+    description: string;
+    characteristics: string[];
+    /** Total Solar Energy Rejected (%) */
+    tser: number;
+    /** UV Protection (%) */
+    uvProtection: number;
+    /** Glare Reduction (%) — для тонировочных плёнок */
+    glareReduction?: number;
+    /** IR Rejection (%) — для керамических / атермальных плёнок */
+    irRejection?: number;
 }
 
 export interface TintMaterial {
@@ -16,6 +27,8 @@ export interface TintMaterial {
     fullName: string;
     description: string;
     accentColor: string;
+    /** Какую третью метрику показывать: "glare" → Блики, "ir" → ИК */
+    thirdSpec: "glare" | "ir";
     levels: TintLevel[];
 }
 
@@ -27,36 +40,83 @@ export const TINT_CONFIG: Record<string, TintMaterial> = {
     monocarbon: {
         name: "MonoCarbon",
         fullName: "Rayno MonoCarbon",
-        description: "Наноуглеродная матрица. Абсолютный матовый чёрный. Гарантия стабильности цвета менее 1% выцветания за 10 лет. Нулевое сопротивление для сигналов 5G и ADAS.",
+        description: "Тонировочная плёнка на основе настоящего углерода (карбона), созданная с использованием передовой нанотехнологии Rayno, без красителей и металлов. Выцветание менее 1% за 10 лет.",
         accentColor: "#4A8FE7",
+        thirdSpec: "glare",
         levels: [
-            { vlt: 5,  label: "5%",  color: "#020202", transmission: 0.96, roughness: 0.05, gost: false },
-            { vlt: 15, label: "15%", color: "#0e0e0e", transmission: 0.78, roughness: 0.05, gost: false },
-            { vlt: 35, label: "35%", color: "#1c1c1c", transmission: 0.56, roughness: 0.04, gost: false },
-            { vlt: 50, label: "50%", color: "#282828", transmission: 0.46, roughness: 0.04, gost: true  },
+            {
+                vlt: 5, label: "5%", color: "#020202", transmission: 0.96, roughness: 0.05, gost: false,
+                tser: 54, uvProtection: 99.9, glareReduction: 95,
+                title: "Лимузинная",
+                description: "Лимузинная тонировка с максимальным уровнем приватности и защиты. Почти полное затемнение стёкол создаёт эффект премиум-класса.",
+                characteristics: [
+                    "Максимальная приватность",
+                    "Наивысшая защита от тепла и UV",
+                    "Премиальный внешний вид",
+                    "Только для задних стёкол",
+                ],
+            },
+            {
+                vlt: 15, label: "15%", color: "#0e0e0e", transmission: 0.78, roughness: 0.05, gost: false,
+                tser: 45, uvProtection: 99.9, glareReduction: 80,
+                title: "Насыщенная",
+                description: "Тёмная тонировка для максимальной приватности и защиты от солнца. Высокий уровень защиты салона от выгорания и перегрева.",
+                characteristics: [
+                    "Высокая степень приватности",
+                    "Эффективное снижение бликов",
+                    "Защита салона от выгорания",
+                    "Для задних боковых и заднего стекла",
+                ],
+            },
+            {
+                vlt: 35, label: "35%", color: "#1c1c1c", transmission: 0.56, roughness: 0.04, gost: false,
+                tser: 35, uvProtection: 99.9, glareReduction: 59,
+                title: "Комфорт",
+                description: "Популярный выбор для комфортной тонировки с хорошим балансом приватности и видимости. Насыщенный чёрный оттенок без выгорания.",
+                characteristics: [
+                    "Оптимальный баланс приватности и видимости",
+                    "Популярный выбор для боковых стёкол",
+                    "Nano-Carbon технология",
+                    "Комфортное вождение днём и ночью",
+                ],
+            },
+            {
+                vlt: 50, label: "50%", color: "#282828", transmission: 0.46, roughness: 0.04, gost: true,
+                tser: 28, uvProtection: 99.9, glareReduction: 42,
+                title: "Лёгкая",
+                description: "Универсальная средняя тонировка. Отличная видимость днём и ночью. Соответствует ГОСТ для передних стёкол.",
+                characteristics: [
+                    "Без красителей — стабильный цвет",
+                    "Выцветание менее 1% за 10 лет",
+                    "Отличная видимость днём и ночью",
+                    "Соответствует ГОСТ 33997-2016",
+                ],
+            },
         ],
     },
     centum: {
         name: "Centum",
         fullName: "Rayno Centum",
-        description: "Диэлектрический нано-керамический спектрофильтр. Невидимый термощит, блокирующий 99% инфракрасного излучения. Полное соответствие ГОСТ для лобового стекла.",
-        accentColor: "#0ED2E6",
+        description: "Атермальная керамическая плёнка без красителей и металлов. Nano-Ceramic технология для максимального светопропускания с мощным отражением солнечной энергии.",
+        accentColor: "#22B8A0",
+        thirdSpec: "ir",
         levels: [
-            { vlt: 80, label: "80%", color: "#c8e6e4", transmission: 0.20, roughness: 0.0, gost: true },
-        ],
-    },
-    rescue: {
-        name: "Rescue",
-        fullName: "Rescue",
-        description: "Бронеплёнка для лобового стекла. Поглощение удара без искажения оптики. Максимальная прозрачность с защитными свойствами.",
-        accentColor: "#8250FF",
-        levels: [
-            { vlt: 90, label: "90%", color: "#eaeaf4", transmission: 0.12, roughness: 0.0, gost: true },
+            {
+                vlt: 80, label: "80%", color: "#c0c8d0", transmission: 0.18, roughness: 0.02, gost: true,
+                tser: 39, uvProtection: 99, irRejection: 80,
+                title: "Атермальная",
+                description: "Идеальна для лобового стекла. Максимальное светопропускание с защитой от тепла и UV. Соответствует ГОСТ.",
+                characteristics: [
+                    "Nano-Ceramic технология",
+                    "Без красителей и металлов",
+                    "Идеальна для лобового стекла",
+                ],
+            },
         ],
     },
 };
 
-export type MaterialKey = "monocarbon" | "centum" | "rescue";
+export type MaterialKey = "monocarbon" | "centum";
 
 // Базовое заводское стекло (левая сторона слайдера)
 // opacity 0.22 → видно как стекло (голубой блик) но насквозь прозрачное

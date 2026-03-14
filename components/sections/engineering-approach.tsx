@@ -61,7 +61,15 @@ const Card = ({ card, index }: { card: typeof cards[0]; index: number }) => {
             </div>
 
             {/* Title */}
-            <h3 className="mb-2 text-lg font-normal text-white md:text-xl">
+            <h3
+                className="mb-2 text-lg font-medium md:text-xl"
+                style={{
+                    background: 'linear-gradient(to bottom, #FFFFFF 0%, #E2E8F0 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                }}
+            >
                 {card.title}
             </h3>
 
@@ -86,7 +94,15 @@ export const EngineeringApproach = () => {
             <Container>
                 {/* Heading */}
                 <div className="mb-12 text-center md:mb-16">
-                    <h2 className="mb-4 text-3xl font-normal tracking-tight text-white md:text-5xl">
+                    <h2
+                        className="mb-4 text-3xl font-medium tracking-tight md:text-5xl"
+                        style={{
+                            background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                        }}
+                    >
                         Инженерный подход к тонировке
                     </h2>
                     <p className="mx-auto max-w-[68rem] text-base text-white/50 md:text-lg">

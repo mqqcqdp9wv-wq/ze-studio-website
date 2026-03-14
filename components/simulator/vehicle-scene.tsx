@@ -11,17 +11,17 @@ import {
     type MaterialKey,
 } from "./glass-material";
 
-// WindowTintFront — лобовое + крыша
-// Mphong2 — боковые, заднее стёкла (+ крышки фар в том же меше — ограничение модели)
-const GLASS_KEYWORDS  = ["mm_glass_windowtint", "mm_glass_mphong2"];
-const DOOR_KEYWORDS   = ["door"];
-const BODY_KEYWORDS   = ["carpaint", "mm_carpaint"];
+// mm_glass_windowtint → люк (sunroof)
+// mm_glass_mphong2    → ВСЕ стёкла в одном меше (лобовое + боковые + заднее + фары)
+// Разделяем mm_glass_mphong2 на переднюю / заднюю зону через clipping plane
+const BODY_KEYWORDS = ["carpaint", "mm_carpaint"];
 
 interface VehicleSceneProps {
-    materialKey: MaterialKey;
-    vlt: number;
+    frontMaterialKey: MaterialKey;
+    frontVlt: number;
+    rearMaterialKey: MaterialKey;
+    rearVlt: number;
     splitX: number; // 0–100
-    doorOpen: boolean;
     hasModel: boolean;
 }
 
@@ -29,54 +29,55 @@ interface VehicleSceneProps {
 // Процедурная машина — заглушка пока нет .glb модели
 // ──────────────────────────────────────────────────────
 function ProceduralCar({
-    materialKey,
-    vlt,
+    frontMaterialKey,
+    frontVlt,
+    rearMaterialKey,
+    rearVlt,
     splitX,
-    doorOpen,
 }: Omit<VehicleSceneProps, "hasModel">) {
     const { gl } = useThree();
     gl.localClippingEnabled = true;
 
-    const doorRef = useRef<THREE.Group>(null);
+    const frontConfig = TINT_CONFIG[frontMaterialKey];
+    const frontLevel  = frontConfig.levels.find((l) => l.vlt === frontVlt) ?? frontConfig.levels[0];
 
-    const config = TINT_CONFIG[materialKey];
-    const level  = config.levels.find((l) => l.vlt === vlt) ?? config.levels[0];
+    const rearConfig  = TINT_CONFIG[rearMaterialKey];
+    const rearLevel   = rearConfig.levels.find((l) => l.vlt === rearVlt)  ?? rearConfig.levels[0];
 
     // Clipping planes для слайдера До/После
     const { clipFactory, clipTint } = useMemo(() => ({
-        clipFactory: new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0), // правая → скрывает тонировку
-        clipTint:    new THREE.Plane(new THREE.Vector3( 1, 0, 0), 0), // левая  → скрывает заводское
+        clipFactory: new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0),
+        clipTint:    new THREE.Plane(new THREE.Vector3( 1, 0, 0), 0),
     }), []);
 
-    // Материалы стёкол
+    // Материалы
     const matFactory = useMemo(() =>
         createGlassMaterial({ ...FACTORY_GLASS_PARAMS, clippingPlanes: [clipFactory] }),
     [clipFactory]);
 
-    const matTint = useMemo(() =>
+    const matFront = useMemo(() =>
         createGlassMaterial({
-            color:        level.color,
-            transmission: level.transmission,
-            roughness:    level.roughness,
+            color:        frontLevel.color,
+            transmission: frontLevel.transmission,
+            roughness:    frontLevel.roughness,
             clippingPlanes: [clipTint],
         }),
-    [level, clipTint]);
+    [frontLevel, clipTint]);
+
+    const matRear = useMemo(() =>
+        createGlassMaterial({
+            color:        rearLevel.color,
+            transmission: rearLevel.transmission,
+            roughness:    rearLevel.roughness,
+            clippingPlanes: [clipTint],
+        }),
+    [rearLevel, clipTint]);
 
     // Синхронизируем плоскости с позицией слайдера
     useFrame(() => {
         const x = (splitX / 100) * 4 - 2;
         clipFactory.constant = -x;
         clipTint.constant    =  x;
-
-        // Анимация двери (lerp 60fps)
-        if (doorRef.current) {
-            const target = doorOpen ? -Math.PI / 3 : 0;
-            doorRef.current.rotation.y = THREE.MathUtils.lerp(
-                doorRef.current.rotation.y,
-                target,
-                0.08
-            );
-        }
     });
 
     const bodyMat = useMemo(() =>
@@ -110,50 +111,59 @@ function ProceduralCar({
                 <boxGeometry args={[0.7, 0.12, 1.65]} />
             </mesh>
 
-            {/* ─── Стёкла (тонировка) ─── */}
-            {/* Лобовое */}
-            <mesh position={[0.98, 0.88, 0]} rotation={[0, 0, -0.62]} material={matTint}>
+            {/* ─── Лобовое стекло — передняя зона ─── */}
+            <mesh position={[0.98, 0.88, 0]} rotation={[0, 0, -0.62]} material={matFront}>
                 <planeGeometry args={[0.78, 1.6]} />
             </mesh>
             <mesh position={[0.98, 0.88, 0]} rotation={[0, 0, -0.62]} material={matFactory}>
                 <planeGeometry args={[0.78, 1.6]} />
             </mesh>
 
-            {/* Заднее */}
-            <mesh position={[-1.28, 0.88, 0]} rotation={[0, 0, 0.5]} material={matTint}>
+            {/* ─── Заднее стекло — задняя зона ─── */}
+            <mesh position={[-1.28, 0.88, 0]} rotation={[0, 0, 0.5]} material={matRear}>
                 <planeGeometry args={[0.72, 1.6]} />
             </mesh>
             <mesh position={[-1.28, 0.88, 0]} rotation={[0, 0, 0.5]} material={matFactory}>
                 <planeGeometry args={[0.72, 1.6]} />
             </mesh>
 
-            {/* Боковые стёкла — правая сторона */}
-            {[[0.38, 0.91, 0.927], [-0.5, 0.91, 0.927]].map((pos, idx) => (
-                <group key={`rside-${idx}`}>
-                    <mesh position={pos as [number, number, number]} material={matTint}>
-                        <planeGeometry args={[0.88, 0.5]} />
-                    </mesh>
-                    <mesh position={pos as [number, number, number]} material={matFactory}>
-                        <planeGeometry args={[0.88, 0.5]} />
-                    </mesh>
-                </group>
-            ))}
-            {/* Боковые стёкла — левая сторона */}
-            {[[0.38, 0.91, -0.927], [-0.5, 0.91, -0.927]].map((pos, idx) => (
-                <group key={`lside-${idx}`}>
-                    <mesh position={pos as [number, number, number]} rotation={[0, Math.PI, 0]} material={matTint}>
-                        <planeGeometry args={[0.88, 0.5]} />
-                    </mesh>
-                    <mesh position={pos as [number, number, number]} rotation={[0, Math.PI, 0]} material={matFactory}>
-                        <planeGeometry args={[0.88, 0.5]} />
-                    </mesh>
-                </group>
-            ))}
+            {/* ─── Передние боковые — правая сторона (передняя зона) ─── */}
+            <group>
+                <mesh position={[0.38, 0.91, 0.927]} material={matFront}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+                <mesh position={[0.38, 0.91, 0.927]} material={matFactory}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+            </group>
 
-            {/* ─── Левая передняя дверь (анимируется) ─── */}
-            <group ref={doorRef} position={[0.5, 0.35, -0.93]}>
-                <mesh castShadow material={bodyMat} position={[0, 0, -0.04]}>
-                    <boxGeometry args={[0.9, 0.72, 0.06]} />
+            {/* ─── Задние боковые — правая сторона (задняя зона) ─── */}
+            <group>
+                <mesh position={[-0.5, 0.91, 0.927]} material={matRear}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+                <mesh position={[-0.5, 0.91, 0.927]} material={matFactory}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+            </group>
+
+            {/* ─── Передние боковые — левая сторона (передняя зона) ─── */}
+            <group>
+                <mesh position={[0.38, 0.91, -0.927]} rotation={[0, Math.PI, 0]} material={matFront}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+                <mesh position={[0.38, 0.91, -0.927]} rotation={[0, Math.PI, 0]} material={matFactory}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+            </group>
+
+            {/* ─── Задние боковые — левая сторона (задняя зона) ─── */}
+            <group>
+                <mesh position={[-0.5, 0.91, -0.927]} rotation={[0, Math.PI, 0]} material={matRear}>
+                    <planeGeometry args={[0.88, 0.5]} />
+                </mesh>
+                <mesh position={[-0.5, 0.91, -0.927]} rotation={[0, Math.PI, 0]} material={matFactory}>
+                    <planeGeometry args={[0.88, 0.5]} />
                 </mesh>
             </group>
 
@@ -188,77 +198,134 @@ function ProceduralCar({
 // GLB модель — подключается когда есть файл
 // ──────────────────────────────────────────────────────
 function GLBCar({
-    materialKey,
-    vlt,
+    frontMaterialKey,
+    frontVlt,
+    rearMaterialKey,
+    rearVlt,
     splitX,
-    doorOpen,
 }: Omit<VehicleSceneProps, "hasModel">) {
     const { scene } = useGLTF("/models/crossover.glb");
     const { gl } = useThree();
     gl.localClippingEnabled = true;
 
-    const doorRef = useRef<THREE.Object3D | null>(null);
-    const config = TINT_CONFIG[materialKey];
-    const level  = config.levels.find((l) => l.vlt === vlt) ?? config.levels[0];
+    const rearCloneRef = useRef<THREE.Mesh | null>(null);
+
+    const frontConfig = TINT_CONFIG[frontMaterialKey];
+    const frontLevel  = frontConfig.levels.find((l) => l.vlt === frontVlt) ?? frontConfig.levels[0];
+
+    const rearConfig  = TINT_CONFIG[rearMaterialKey];
+    const rearLevel   = rearConfig.levels.find((l) => l.vlt === rearVlt)  ?? rearConfig.levels[0];
 
     const { clipFactory, clipTint } = useMemo(() => ({
         clipFactory: new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0),
         clipTint:    new THREE.Plane(new THREE.Vector3( 1, 0, 0), 0),
     }), []);
 
-    // Применяем материалы к стёклам при изменении конфига
+    // Применяем материалы к стёклам
     useEffect(() => {
+        // Убираем предыдущий клон задней зоны
+        if (rearCloneRef.current) {
+            rearCloneRef.current.parent?.remove(rearCloneRef.current);
+            rearCloneRef.current = null;
+        }
+
         scene.traverse((child) => {
             if (!(child instanceof THREE.Mesh)) return;
             const name = child.name.toLowerCase();
 
-            // Дверь
-            if (DOOR_KEYWORDS.some((k) => name.includes(k))) {
-                doorRef.current = child;
-            }
-
-            // Стёкла
-            if (GLASS_KEYWORDS.some((k) => name.includes(k))) {
+            // Люк (sunroof) → задняя зона
+            if (name.includes("mm_glass_windowtint")) {
                 child.material = createGlassMaterial({
-                    color:        level.color,
-                    transmission: level.transmission,
-                    roughness:    level.roughness,
+                    color:        rearLevel.color,
+                    transmission: rearLevel.transmission,
+                    roughness:    rearLevel.roughness,
                     clippingPlanes: [clipTint],
                 });
                 child.castShadow    = false;
                 child.receiveShadow = false;
-                // Фикс пропадания при орбите: рендерим стёкла после кузова
                 child.renderOrder   = 2;
                 child.frustumCulled = false;
+            }
+
+            // ВСЕ стёкла (mm_glass_mphong2) → разрезаем clipping plane на перед/зад
+            if (name.includes("mm_glass_mphong2")) {
+                // Определяем ось длины авто по bounding box
+                child.updateWorldMatrix(true, false);
+                const box = new THREE.Box3().setFromObject(child);
+
+                const sizeX = box.max.x - box.min.x;
+                const sizeZ = box.max.z - box.min.z;
+                const useX  = sizeX >= sizeZ;
+
+                // Разрез ближе к B-стойке (~42% от min, чтобы задняя зона не залезала на перед)
+                const splitVal = useX
+                    ? box.min.x + (box.max.x - box.min.x) * 0.42
+                    : box.min.z + (box.max.z - box.min.z) * 0.42;
+
+                console.log(`[ZONE] axis=${useX ? "X" : "Z"}, range=[${
+                    (useX ? box.min.x : box.min.z).toFixed(2)}, ${
+                    (useX ? box.max.x : box.max.z).toFixed(2)}], split=${splitVal.toFixed(2)}`);
+
+                // Плоскости разреза в world-space
+                const frontNormal = useX
+                    ? new THREE.Vector3(1, 0, 0)
+                    : new THREE.Vector3(0, 0, 1);
+
+                // front: visible when coord >= splitVal
+                const zoneFrontPlane = new THREE.Plane(frontNormal.clone(), -splitVal);
+                // rear:  visible when coord <= splitVal
+                const zoneRearPlane  = new THREE.Plane(frontNormal.clone().negate(), splitVal);
+
+                // ── Оригинальный меш → передняя зона ──
+                child.material = createGlassMaterial({
+                    color:        frontLevel.color,
+                    transmission: frontLevel.transmission,
+                    roughness:    frontLevel.roughness,
+                    clippingPlanes: [clipTint, zoneFrontPlane],
+                });
+                child.castShadow    = false;
+                child.receiveShadow = false;
+                child.renderOrder   = 2;
+                child.frustumCulled = false;
+
+                // ── Клон → задняя зона ──
+                const clone = child.clone();
+                clone.material = createGlassMaterial({
+                    color:        rearLevel.color,
+                    transmission: rearLevel.transmission,
+                    roughness:    rearLevel.roughness,
+                    clippingPlanes: [clipTint, zoneRearPlane],
+                });
+                clone.castShadow    = false;
+                clone.receiveShadow = false;
+                clone.renderOrder   = 2;
+                clone.frustumCulled = false;
+                child.parent?.add(clone);
+                rearCloneRef.current = clone;
             }
 
             // Кузов
             if (BODY_KEYWORDS.some((k) => name.includes(k))) {
                 (child.material as THREE.MeshStandardMaterial).color?.set("#1a1a1a");
             }
-
-            // mm_lglass (фары) — не трогаем, оригинальный материал модели
         });
-    }, [scene, level, clipTint]);
+
+        return () => {
+            if (rearCloneRef.current) {
+                rearCloneRef.current.parent?.remove(rearCloneRef.current);
+                rearCloneRef.current = null;
+            }
+        };
+    }, [scene, frontLevel, rearLevel, clipTint]);
 
     useFrame(() => {
         const x = (splitX / 100) * 4 - 2;
         clipFactory.constant = -x;
         clipTint.constant    =  x;
-
-        if (doorRef.current) {
-            const target = doorOpen ? -Math.PI / 3 : 0;
-            doorRef.current.rotation.y = THREE.MathUtils.lerp(
-                doorRef.current.rotation.y,
-                target,
-                0.08
-            );
-        }
     });
 
     return (
         <group>
-            {/* scale — подобрать под фактический размер модели */}
             <primitive object={scene} scale={0.5} position={[0, 0, 0]} />
             <ContactShadows position={[0, -0.01, 0]} opacity={0.8} scale={12} blur={2.5} far={4} />
         </group>

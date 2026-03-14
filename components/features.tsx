@@ -63,12 +63,19 @@ const MainFeature = ({
           <h2 className="mb-11 translate-y-[40%] text-center [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s] [.is-visible_&]:translate-y-0">
             {title}
           </h2>
-          <div className="relative z-10 rounded-[14px] overflow-hidden backdrop-blur-[6px] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(rgba(255,_255,_255,_0.3),_rgba(255,_255,_255,_0)_120%)] before:p-[1px] before:[mask:linear-gradient(black,_black)_content-box_content-box,_linear-gradient(black,_black)] before:[mask-composite:xor] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-[rgba(255,_255,_255,_0.15)] after:[mask:linear-gradient(black,transparent)]">
-            {typeof image === "string" ? (
-              <img src={image} className="h-auto w-full" />
-            ) : (
-              <div className="aspect-video w-full">{image}</div>
-            )}
+          <div
+            className="relative z-10 w-full overflow-hidden"
+            style={{ WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)", maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)" }}
+          >
+            <div
+              style={{ WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)", maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)" }}
+            >
+              {typeof image === "string" ? (
+                <img src={image} className="h-auto w-full object-cover" />
+              ) : (
+                <div className="aspect-video w-full">{image}</div>
+              )}
+            </div>
           </div>
         </Container>
       </div>
@@ -118,7 +125,7 @@ const FeatureGrid = ({ features }: FeatureGridProps) => {
               <p
                 className="relative flex items-center gap-1 font-semibold text-[18px] mb-1.5 leading-snug tracking-tighter font-mono uppercase"
                 style={{
-                  background: `linear-gradient(to bottom, #fff 20%, rgba(255,255,255,0.45))`,
+                  background: 'linear-gradient(to bottom, #FFFFFF 0%, #E2E8F0 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -159,7 +166,17 @@ const FeatureCards = ({ features }: FeatureCardsProps) => {
             key={title}
             className="relative aspect-[1.1/1] overflow-hidden rounded-[2.4rem] border border-transparent-white bg-[radial-gradient(ellipse_at_center,rgba(var(--feature-color),0.15),transparent)] py-6 px-8 before:pointer-events-none before:absolute before:inset-0 before:bg-glass-gradient md:rounded-[4.8rem] md:p-14"
           >
-            <h3 className="mb-2 text-2xl text-white">{title}</h3>
+            <h3
+              className="mb-2 text-2xl font-bold uppercase tracking-tight"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF 0%, #E2E8F0 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {title}
+            </h3>
             <p className="max-w-[31rem] text-md text-primary-text">{text}</p>
             <img
               className={classNames("absolute max-w-none", imageClassName)}

@@ -55,7 +55,7 @@ export const Faq = () => {
                         <span className="text-gradient text-6xl font-semibold tracking-tighter md:text-8xl">
                             Вопросы
                         </span>
-                        <span className="mt-2 flex items-center gap-2 text-[10px] font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.15em] md:tracking-[0.5em]">
+                        <span className="mt-2 flex items-center gap-3 text-[12px] font-light text-white/40 md:gap-10 md:text-2xl uppercase tracking-[0.3em] md:tracking-[0.5em]">
                             <span>Частые</span>
                             <span className="text-white/10">•</span>
                             <span>Ответы</span>
@@ -140,30 +140,41 @@ export const Faq = () => {
                                         hidden: { opacity: 0, y: 14 },
                                         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
                                     }}
-                                    className="overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-md cursor-pointer transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04]"
-                                    style={{
-                                        borderLeft: isOpen ? "2px solid rgba(var(--feature-color),0.6)" : "2px solid transparent",
-                                    }}
+                                    className={classNames(
+                                        "overflow-hidden rounded-2xl border transition-all duration-500 backdrop-blur-xl cursor-pointer",
+                                        isOpen ? "border-white/20 bg-white/[0.05]" : "border-white/[0.06] bg-white/[0.02] hover:border-white/15"
+                                    )}
                                     onClick={() => setOpen(isOpen ? null : i)}
                                 >
-                                    <div className="flex items-center gap-4 px-6 py-5">
+                                    <div className="relative flex items-center gap-6 px-7 py-6">
+                                        {/* Status Line Indicator */}
+                                        <div
+                                            className="absolute left-0 top-0 bottom-0 w-[2px] transition-all duration-500"
+                                            style={{
+                                                backgroundColor: isOpen ? 'rgb(var(--feature-color))' : 'transparent',
+                                                boxShadow: isOpen ? `0 0 15px rgb(var(--feature-color))` : 'none'
+                                            }}
+                                        />
+
                                         {/* Number */}
-                                        <span className="flex-shrink-0 text-xs font-mono text-white/20 w-6">
+                                        <span className="flex-shrink-0 text-[10px] font-mono font-bold text-white/20 w-5 tracking-widest leading-none">
                                             {String(i + 1).padStart(2, "0")}
                                         </span>
-                                        <span className={`flex-1 text-sm font-medium transition-colors duration-200 md:text-md ${isOpen ? "text-white" : "text-white/70"}`}>
+
+                                        <span className={classNames(
+                                            "flex-1 font-mono text-[14px] md:text-[15px] font-bold uppercase tracking-tight transition-colors duration-300",
+                                            isOpen ? "text-white" : "text-white/60"
+                                        )}>
                                             {faq.q}
                                         </span>
-                                        <motion.div
-                                            animate={{ rotate: isOpen ? 45 : 0 }}
-                                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                                            className="flex-shrink-0"
-                                            style={{ color: isOpen ? "rgba(var(--feature-color),0.9)" : "rgba(255,255,255,0.2)" }}
-                                        >
-                                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                                <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                            </svg>
-                                        </motion.div>
+
+                                        {/* Minimalist Switch */}
+                                        <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full border border-white/10 group-hover:border-white/20 transition-colors">
+                                            <div
+                                                className="h-[1px] w-3 bg-white/40 transition-transform duration-500"
+                                                style={{ transform: isOpen ? 'rotate(180deg) scaleX(1.5)' : 'rotate(90deg)' }}
+                                            />
+                                        </div>
                                     </div>
 
                                     <AnimatePresence initial={false}>
@@ -172,11 +183,16 @@ export const Faq = () => {
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: "auto", opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                             >
-                                                <p className="pl-16 pr-6 pb-5 text-sm leading-relaxed text-white/50">
-                                                    {faq.a}
-                                                </p>
+                                                <div className="pl-[76px] pr-8 pb-7">
+                                                    <p
+                                                        className="text-shimmer-desc text-[13.5px] md:text-[14.5px] leading-relaxed font-sans"
+                                                        style={{ '--shimmer-delay': '0s' } as React.CSSProperties}
+                                                    >
+                                                        {faq.a}
+                                                    </p>
+                                                </div>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>

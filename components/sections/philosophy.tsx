@@ -83,7 +83,15 @@ export const Philosophy = () => {
 
         return (
             <div key={pi} className="mb-10 md:mb-12">
-                <p className="text-5xl font-black uppercase leading-none tracking-[-0.02em] text-white md:text-7xl lg:text-[6rem]">
+                <p
+                    className="text-5xl font-black uppercase leading-none tracking-[-0.02em] md:text-7xl lg:text-[6rem]"
+                    style={{
+                        background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                    }}
+                >
                     {titleNodes}
                 </p>
                 <p className="mt-2 text-xl font-light tracking-wide text-white/50 md:text-2xl lg:text-3xl">

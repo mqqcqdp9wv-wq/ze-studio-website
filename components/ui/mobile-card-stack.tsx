@@ -12,6 +12,7 @@ type CardData = {
     icon?: React.FC;
     pattern?: string;
     animClass?: string;
+    bgImage?: string;
 };
 
 // index 0 = back, 2 = front
@@ -65,15 +66,27 @@ export const MobileCardStack = ({ cards }: { cards: CardData[] }) => {
                             }}
                             transition={{ duration: 0.8, delay: i * 0.06, ease: "easeInOut" }}
                         >
-                            {/* Glow orb */}
-                            <div
-                                className="pointer-events-none absolute inset-0 opacity-50"
-                                style={{ background: `radial-gradient(ellipse 80% 55% at 50% 30%, ${card.glowColor}cc, transparent 70%)` }}
-                            />
+                            {/* Card Background Image */}
+                            {card.bgImage && (
+                                <img
+                                    src={card.bgImage}
+                                    className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-screen transition-opacity duration-500"
+                                    style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}
+                                    alt={card.title}
+                                />
+                            )}
+
+                            {/* Glow orb — hidden when bgImage */}
+                            {!card.bgImage && (
+                                <div
+                                    className="pointer-events-none absolute inset-0 opacity-50 z-10"
+                                    style={{ background: `radial-gradient(ellipse 80% 55% at 50% 30%, ${card.glowColor}cc, transparent 70%)` }}
+                                />
+                            )}
                             {/* Top edge */}
                             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                            {/* Material animation */}
-                            {card.animClass && (
+                            {/* Material animation — auto-hidden when bgImage */}
+                            {card.animClass && !card.bgImage && (
                                 <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden" style={{ borderRadius: "2rem" }}>
                                     <div className={card.animClass} />
                                 </div>

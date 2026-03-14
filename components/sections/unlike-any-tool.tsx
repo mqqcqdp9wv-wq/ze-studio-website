@@ -9,7 +9,15 @@ export const UnlikeAnyTool = () => (
   <div className="text-white">
     <Container>
       <div className="text-center">
-        <h2 className="mb-4 text-4xl md:mb-7 md:text-7xl">
+        <h2
+          className="mb-4 text-4xl md:mb-7 md:text-7xl"
+          style={{
+            background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
           Почему «просто тонировка»
           <br className="hidden md:inline-block" /> стоит дороже, чем кажется
         </h2>

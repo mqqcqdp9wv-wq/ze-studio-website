@@ -49,7 +49,15 @@ export const Clients = () => {
       </div>
 
       <div className="relative z-10 mb-16 text-center flex flex-col items-center gap-6">
-        <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter text-white leading-[1.05] px-4">
+        <h2
+          className="text-4xl md:text-6xl font-semibold tracking-tighter leading-[1.05] px-4"
+          style={{
+            background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
           Работаем с любыми <br /> марками автомобилей
         </h2>
         <p className="text-white/40 text-xl md:text-2xl font-normal tabular-nums flex flex-wrap items-center justify-center gap-x-2">

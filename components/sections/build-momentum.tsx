@@ -23,7 +23,15 @@ export const BuildMomentum = () => {
       <Features.Main
         title={
           <span className="flex flex-col items-center tracking-tighter text-white opacity-0 blur-[10px] translate-y-8 [transition:opacity_1s_ease,transform_1s_cubic-bezier(0.16,1,0.3,1),filter_1s_ease] [.is-visible_&]:opacity-100 [.is-visible_&]:blur-0 [.is-visible_&]:translate-y-0 text-center">
-            <span className="text-gradient text-6xl font-semibold tracking-tighter md:text-8xl">
+            <span
+              className="text-6xl font-semibold tracking-tighter md:text-8xl"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF 20%, #E2E8F0 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
               Исполнение
             </span>
             <span className="mt-2 flex items-center gap-2 text-[13px] md:text-2xl font-light text-white/40 uppercase tracking-[0.15em] md:tracking-[0.5em]">
